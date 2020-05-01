@@ -9,8 +9,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 html, body {
   height: 100%;
+}
+
+@media (max-width: 64rem) {
+  .view-mobile {
+    display: inline !important;
+  }
+  .view-desktop {
+    display: none !important;
+  }
 }
 </style>

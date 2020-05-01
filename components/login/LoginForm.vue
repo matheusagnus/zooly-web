@@ -28,6 +28,7 @@
 
         <b-button class="btn-primary">Acessar</b-button>
       </div>
+      <p>Esqueceu sua senha? <nuxt-link to="/">Recupere a sua senha</nuxt-link></p>
     </div>
   </section>
 </template>
@@ -56,6 +57,10 @@ export default {
         font-size: 1.5rem;
         font-weight: 700;
       }
+    }
+    p {
+      font-size: 0.85rem;
+      text-align: center;
     }
   }
   .form {

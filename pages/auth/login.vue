@@ -1,7 +1,7 @@
 <template>
   <section class="login">
     <div class="columns">
-      <div class="column intro is-7">
+      <div class="column intro is-7 view-desktop">
         <intro-carousel />
       </div>
       <div class="column login-component">
