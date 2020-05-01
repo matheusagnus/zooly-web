@@ -5,18 +5,19 @@
         <intro-carousel />
       </div>
       <div class="column login-component">
-
+        <login-form />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import IntroCarousel from '@/components/home/IntroCorousel'
+import IntroCarousel from '@/components/login/IntroCorousel'
+import LoginForm from '@/components/login/LoginForm'
 
   export default {
     name: 'Login',
-    components: { IntroCarousel }
+    components: { IntroCarousel, LoginForm }
   }
 </script>
 

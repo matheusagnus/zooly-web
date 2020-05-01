@@ -1,6 +1,26 @@
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
+// Google Fonts
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+
+// Font Family
+$font-primary: 'Roboto', sans-serif;
+
+// Font Weight
+$font-black: 900;
+$font-bold: 700;
+$font-semi-bold: 500;
+$font-normal: 400;
+$font-light: 300;
+
+// Font Size
+$h1-headline: 32px;
+$h2-headline: 26px;
+$h3-headline: 24px;
+$h4-headline: 18px;
+$h5-headline: 16px;
+
 // Set your colors
 $primary: #FF725F;
 $primary-invert: findColorInvert($primary);

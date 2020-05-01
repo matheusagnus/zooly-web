@@ -49,7 +49,7 @@ export default {
   width: 15rem;
   margin: 0 auto;
   img {
-    margin-top: 5rem;
+    margin-top: 2.5rem;
   }
 }
 </style>
