@@ -26,7 +26,7 @@
           <b-input icon="lock-question" type="password" placeholder="Sua senha..."></b-input>
         </b-field>
 
-        <b-button class="btn-primary">Acessar</b-button>
+        <b-button class="btn-primary" @click="login">Acessar</b-button>
       </div>
       <p>Esqueceu sua senha? <nuxt-link to="/auth/recover">Recupere a sua senha</nuxt-link></p>
     </div>
@@ -39,6 +39,13 @@ export default {
   data () {
     return {
       hasError: false
+    }
+  },
+  methods: {
+    login () {
+      this.$router.push({
+        path: '/'
+      })
     }
   }
 };
