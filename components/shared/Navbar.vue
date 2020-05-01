@@ -1,7 +1,7 @@
 <template>
     <b-navbar>
         <template slot="start">
-            <b-navbar-item href="#" v-if="false">
+            <b-navbar-item href="#" v-if="true">
                 Projeto Zooly
             </b-navbar-item>
             <b-navbar-item href="#" v-else>

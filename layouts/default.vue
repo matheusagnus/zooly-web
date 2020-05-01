@@ -28,6 +28,9 @@ html, body {
     padding: 1.5rem;
     border-radius: 1rem;
   }
+  .container {
+    padding: 0.75rem;
+  }
 }
 
 #app-view {
