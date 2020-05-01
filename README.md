@@ -1,8 +1,17 @@
-# zooly-web
+# Projeto Zooly (Web)
 
-> a smashing project to save animals
+> O Projeto Zooly deseja auxiliar no gerenciamento de dados nutricionais dos animais, buscando ajudar as instituições que mantém animais por motivos de preservação, educação, pesquisa ou saúde. O sistema trará para o profissional responsável pela nutrição do animal a praticidade e eficácia em armazenar e manipular dados.
 
-## Build Setup
+> Desenvolver um aplicação que permita a responsáveis pela rotina alimentar de animais para gerenciá-la de maneira fácil, prática e ágil.
+
+## Participantes do projeto
+
+- Angleby Vamberg Alves Vieira
+- Matheus Ferreira dos Santos Oliveira
+- Wesley Garreto
+Orientador: Eliel Silva da Cruz
+
+## Para rodar o projeto
 
 ``` bash
 # install dependencies
@@ -19,4 +28,4 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Para mais detalhes de como as coisas funcionam, [Nuxt.js docs](https://nuxtjs.org).
