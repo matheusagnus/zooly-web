@@ -17,16 +17,13 @@ import LoginForm from '@/components/login/LoginForm'
 
   export default {
     name: 'Login',
+    layout: 'empty',
     components: { IntroCarousel, LoginForm }
   }
 </script>
 
 <style lang="scss" scoped>
 .login {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  height: 100vh;
-  background-color: #0A0D27;
   .intro {
     height: 104vh;
     background-color: #FAFAFA;

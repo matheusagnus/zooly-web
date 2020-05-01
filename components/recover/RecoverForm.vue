@@ -1,11 +1,11 @@
 <template>
-  <section class="login-form">
-    <div class="logo">
-      <img src="@/assets/images/logo-onlyfox.svg" alt="Logomarca do projeto zooly" />
-    </div>
+  <div class="recover-form">
     <div class="card">
       <div class="title">
-        <h2>Login</h2>
+        <h2>Recuperar de senha</h2>
+      </div>
+      <div class="subtitle">
+        <p>Enviaremos um e-mail para confirmar o seu e-mail e recuperar a sua senha</p>
       </div>
       <div class="form">
         <b-field
@@ -16,38 +16,27 @@
           <b-input icon="account" placeholder="Seu e-mail..."></b-input>
         </b-field>
 
-        <b-field
-          label="Senha"
-          :type="{ 'is-danger': hasError }"
-          :message="[
-            { 'Precisamos da senha para o login': hasError }
-          ]"
-          >
-          <b-input icon="lock-question" type="password" placeholder="Sua senha..."></b-input>
-        </b-field>
-
-        <b-button class="btn-primary">Acessar</b-button>
+        <b-button class="btn-primary">Enviar e-mail</b-button>
       </div>
-      <p>Esqueceu sua senha? <nuxt-link to="/auth/recover">Recupere a sua senha</nuxt-link></p>
+      <p>Voltar para o <nuxt-link to="/auth/login">Login</nuxt-link></p>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'LoginForm',
-  data () {
-    return {
-      hasError: false
+  export default {
+    data () {
+      return {
+        hasError: false
+      }
     }
   }
-};
 </script>
 
 <style lang="scss" scoped>
-.login-form {
+.recover-form {
   .card {
-    width: 80%;
+    width: 40%;
     margin: 1rem auto;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -57,6 +46,9 @@ export default {
         font-size: 1.5rem;
         font-weight: 700;
       }
+    }
+    .subtitle {
+      font-size: 0.85rem;
     }
     p {
       font-size: 0.85rem;
@@ -78,12 +70,11 @@ export default {
       background: linear-gradient(to right, rgba(255,114,95,1) 30%, rgba(242,49,165,1) 100%);
     }
   }
-  .logo {
-    width: 5rem;
-    margin: 0 auto;
-    img {
-      margin-top: 2.5rem;
-    }
+}
+
+@media (max-width: 64rem) {
+  .recover-form .card {
+    width: 80%;
   }
 }
 </style>
