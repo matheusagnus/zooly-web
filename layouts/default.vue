@@ -6,13 +6,15 @@
         <nuxt />
       </div>
     </div>
+    <stepped />
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/shared/Navbar'
+import Stepped from '@/components/shared/Stepped'
 export default {
-  components: { Navbar }
+  components: { Navbar, Stepped }
 }
 </script>
 
