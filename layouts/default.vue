@@ -17,8 +17,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/stylesheet/base.scss';
+
 html, body {
   height: 100%;
+  font-family: $font-primary;
 }
 
 .default {
@@ -27,9 +30,12 @@ html, body {
   .card {
     padding: 1.5rem;
     border-radius: 1rem;
+    height: 100%;
   }
   .container {
     padding: 0.75rem;
+    margin: 0 auto;
+    position: relative;
   }
 }
 
