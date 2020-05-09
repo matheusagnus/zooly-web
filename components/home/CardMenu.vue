@@ -1,10 +1,13 @@
 <template>
-    <div class="card-menu columns is-multiline">
+    <div class="card-menu columns is-multiline is-desktop">
       <div class="column is-4 is-variable" v-for="item in menuItems" :key="item.title">
-        <div class="card has-text-centered">
-          <b-icon type="is-primary" :icon="item.icon" />
-          <h4>{{ item.title }}</h4>
-        </div>
+        <nuxt-link :to="item.link">
+          <div class="card has-text-centered">
+            <b-icon type="is-primary" :icon="item.icon" />
+            <h4>{{ item.title }}</h4>
+          </div>
+        </nuxt-link>
+
       </div>
     </div>
 </template>
@@ -28,8 +31,10 @@
   display: flex;
   margin-top: 1rem;
   .card {
-    border: 0.25rem;
-    border-color: $primary;
+    &:hover {
+      border: 0.09375rem solid $primary;
+      cursor: pointer;
+    }
   }
   h4 {
     font-weight: $font-semi-bold;

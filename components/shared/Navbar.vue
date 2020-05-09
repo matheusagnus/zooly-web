@@ -7,7 +7,7 @@
       </template>
         <template slot="start">
             <b-navbar-item href="#" v-if="true">
-                Projeto Zooly
+                Zooly Backoffice
             </b-navbar-item>
             <b-navbar-item href="#" v-else>
               <b-icon icon="chevron-left" /> <span>Voltar</span>
@@ -16,7 +16,7 @@
 
         <template slot="end">
             <b-navbar-item tag="div">
-              <b-button type="is-danger" icon-right="power" />
+              <b-button @click="logout()" type="is-danger" icon-right="power" />
             </b-navbar-item>
         </template>
     </b-navbar>
@@ -24,7 +24,14 @@
 
 <script>
   export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    methods: {
+      logout () {
+        this.$router.push({
+        path: '/auth/login'
+      })
+      }
+    }
   }
 </script>
 

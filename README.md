@@ -1,6 +1,6 @@
-# Projeto Zooly (Web)
+# Zooly Backoffice (Web)
 
-> O Projeto Zooly deseja auxiliar no gerenciamento de dados nutricionais dos animais, buscando ajudar as instituições que mantém animais por motivos de preservação, educação, pesquisa ou saúde. O sistema trará para o profissional responsável pela nutrição do animal a praticidade e eficácia em armazenar e manipular dados.
+> O Zooly Backoffice deseja auxiliar no gerenciamento de dados nutricionais dos animais, buscando ajudar as instituições que mantém animais por motivos de preservação, educação, pesquisa ou saúde. O sistema trará para o profissional responsável pela nutrição do animal a praticidade e eficácia em armazenar e manipular dados.
 
 > Desenvolver um aplicação que permita a responsáveis pela rotina alimentar de animais para gerenciá-la de maneira fácil, prática e ágil.
 

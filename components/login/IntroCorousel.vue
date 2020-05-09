@@ -1,13 +1,19 @@
 <template>
   <section>
     <div class="logo">
-      <img src="@/assets/images/logo.svg" alt="Logomarca do projeto zooly" />
+      <img src="@/assets/images/logo.svg" alt="Logomarca do backoffice zooly" />
     </div>
     <b-carousel :pause-info="false">
-      <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
-        <section :class="`hero is-medium is-${carousel.color}`">
-          <div class="hero-body has-text-centered">
-            <h1 class="title">{{carousel.text}}</h1>
+      <b-carousel-item v-for="(carousel, i) in 3" :key="i">
+        <section class="hero is-medium">
+          <div class="hero-body has-text-centered" v-show="i == 0">
+            <img src="@/assets/images/preservar.png" alt="">
+          </div>
+          <div class="hero-body has-text-centered" v-show="i == 1">
+            <img src="@/assets/images/educar.png" alt="">
+          </div>
+          <div class="hero-body has-text-centered" v-show="i == 2">
+            <img src="@/assets/images/saude.png" alt="">
           </div>
         </section>
       </b-carousel-item>
@@ -17,18 +23,7 @@
 
 <script>
 export default {
-  name: "IntroCarousel",
-  data() {
-    return {
-      carousels: [
-        { text: "Slide 1", color: "primary" },
-        { text: "Slide 2", color: "secundary" },
-        { text: "Slide 3", color: "primary" },
-        { text: "Slide 4", color: "secundary" },
-        { text: "Slide 5", color: "primary" }
-      ]
-    };
-  }
+  name: "IntroCarousel"
 };
 </script>
 
@@ -44,6 +39,11 @@ export default {
     bottom: 1rem;
   }
 }
+
+  .hero.is-medium .hero-body {
+      padding: 0;
+  }
+
 
 .logo {
   width: 15rem;
