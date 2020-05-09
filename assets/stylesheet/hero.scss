@@ -1,0 +1,15 @@
+.hero {
+  .title {
+    margin-bottom: 0.25;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: $subtitle-color;
+  }
+  hr {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border: 0.05rem solid $primary;
+  }
+}

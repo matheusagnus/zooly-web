@@ -18,8 +18,8 @@ export default {
         { title: 'Tarefas', icon: 'clipboard-text-outline', link: '/board' },
         { title: 'Animais', icon: 'paw', link: '/animals' },
         { title: 'Biometria', icon: 'pulse', link: '/biometry' },
-        { title: 'Gestão de Pessoas', icon: 'account-supervisor', link: '/people-manager' },
-        { title: 'Atividades Recentes', icon: 'view-list', link: '/last-activity' }
+        { title: 'Gestão de Pessoas', icon: 'account-supervisor', link: '/people' },
+        { title: 'Atividades Recentes', icon: 'view-list', link: '/activity' }
       ]
     }
   }
