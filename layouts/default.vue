@@ -4,6 +4,7 @@
       <div class="card">
         <navbar />
         <nuxt />
+        <hr>
       </div>
     </div>
     <stepped />
@@ -23,28 +24,24 @@ export default {
 
 html, body {
   height: 100%;
+  background-color: #0A0D27;
   font-family: $font-primary;
 }
 
 .default {
-  margin: 5rem auto;
+  margin: 3rem auto;
   width: 90%;
   .card {
     padding: 1.5rem;
     border-radius: 1rem;
     height: 100%;
+    background-color: #fafafa;
   }
   .container {
     padding: 0.75rem;
     margin: 0 auto;
     position: relative;
   }
-}
-
-#app-view {
-  overflow-x: hidden;
-  height: 100vh;
-  background-color: #0A0D27;
 }
 
 @media (max-width: 64rem) {

@@ -14,14 +14,8 @@ export default {
 
 html, body {
   height: 100%;
-  font-family: $font-primary;
-}
-
-#app-view {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  height: 100vh;
   background-color: #0A0D27;
+  font-family: $font-primary;
 }
 
 @media (max-width: 64rem) {

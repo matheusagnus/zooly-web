@@ -36,6 +36,9 @@
 </script>
 
 <style lang="scss" scoped>
+.navbar {
+  background-color: #fafafa;
+}
 .navbar-item img {
   width: 3rem;
   max-height: 3.75rem;

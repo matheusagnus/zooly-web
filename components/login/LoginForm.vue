@@ -58,6 +58,7 @@ export default {
     margin: 1rem auto;
     padding: 1.5rem;
     border-radius: 1rem;
+    background-color: #fafafa;
     .title {
       text-align: center;
       h2 {

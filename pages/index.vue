@@ -1,8 +1,6 @@
 <template>
   <section class="container">
     <card-menu :menuItems="items" />
-    <hr>
-
   </section>
 </template>
 
