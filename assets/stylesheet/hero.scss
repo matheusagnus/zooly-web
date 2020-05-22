@@ -1,11 +1,20 @@
 .hero {
-  .title {
-    margin-bottom: 0.25;
+  display: flex;
+  .text {
+    margin-bottom: 1.5rem;
+    width: 80%;
+    .title {
+      margin-bottom: 0.25;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: $subtitle-color;
+    }
   }
-  .subtitle {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: $subtitle-color;
+  .action {
+    position: absolute;
+    right: 0;
   }
   hr {
     margin-top: 0.25rem;
