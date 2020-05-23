@@ -3,25 +3,70 @@
     <modal-template v-show="toggle" class="override-modal">
       <template #header>
         <b-icon icon="close" @click.native="toggleInfoModal()" />
-        <h3>Nova Tarefa</h3>
+        <h3>Criar Nova Tarefa</h3>
       </template>
       <template #body>
-        <div class="has-text-centered">
-          <p>Você tem certeza de que não poderá comparecer?</p>
-        </div>
+        <form>
+          <b-field label="Título">
+            <b-input placeholder="Digite aqui..." maxlength="60" />
+          </b-field>
+          <b-field label="Data">
+            <b-datepicker
+              placeholder="Selecione uma data..."
+              icon="calendar-today"
+              :mobile-native="true"
+            />
+          </b-field>
+          <b-field label="Responsável">
+            <b-autocomplete
+              v-model="name"
+              :data="filteredDataArray"
+              placeholder="Selecione o responsável..."
+              icon="magnify"
+              clearable
+              @select="option => selected = option"
+            >
+              <template slot="empty">Usuário não existe</template>
+            </b-autocomplete>
+          </b-field>
+          <b-field label="Descrição">
+            <b-input type="textarea" />
+          </b-field>
+        </form>
       </template>
       <template #footer class="columns is-centered">
-        
+        <div class="action-modal">
+          <b-button class="btn-secundary">Criar</b-button>
+        </div>
       </template>
     </modal-template>
   </div>
 </template>
 
 <script>
-import ModalTemplate from '../shared/ModalTemplate'
+import ModalTemplate from "../shared/ModalTemplate";
 export default {
-  name: 'AddNewTask',
+  name: "AddNewTask",
   components: { ModalTemplate },
+  data() {
+    return {
+      data: ["Matheus", "Wesley", "Angleby"],
+      name: "",
+      selected: null
+    };
+  },
+  computed: {
+    filteredDataArray() {
+      return this.data.filter(option => {
+        return (
+          option
+            .toString()
+            .toLowerCase()
+            .indexOf(this.name.toLowerCase()) >= 0
+        );
+      });
+    }
+  },
   props: {
     toggle: {
       type: Boolean,
@@ -29,13 +74,47 @@ export default {
     }
   },
   methods: {
-    toggleInfoModal () {
-      this.$emit('closeModal')
+    toggleInfoModal() {
+      this.$emit("closeModal");
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/stylesheet/base';
+@import "@/assets/stylesheet/base";
+.override-modal /deep/ .modal-box {
+  width: 100%;
+  max-width: 55rem;
+  height: 100%;
+  max-height: 40rem;
+  .modal-body {
+    max-height: 100%;
+  }
+}
+
+.control /deep/.help.counter {
+  display: none;
+}
+.action-modal {
+  display: flex;
+  justify-content: flex-end;
+  .btn-secundary {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 33%;
+    font-weight: 700;
+    color: $primary;
+    border: 0.05rem solid $primary;
+
+    &:hover {
+      background: linear-gradient(
+        to right,
+        rgba(255, 114, 95, 1) 30%,
+        rgba(242, 49, 165, 1) 100%
+      );
+      color: #fafafa;
+    }
+  }
+}
 </style>

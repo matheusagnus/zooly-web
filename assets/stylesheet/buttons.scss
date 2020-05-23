@@ -1,0 +1,21 @@
+button {
+  .btn-primary {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 100%;
+    font-weight: 700;
+    color: #fafafa;
+    background: linear-gradient(to right, rgba(255,114,95,1) 30%, rgba(242,49,165,1) 100%);
+  }
+  .btn-secundary {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 33%;
+    font-weight: 700;
+    border: 0.05rem solid rgba(255,114,95,1);
+
+    &:hover {
+      background: linear-gradient(to right, rgba(255,114,95,1) 30%, rgba(242,49,165,1) 100%);
+    }
+  }
+}

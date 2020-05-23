@@ -7,7 +7,7 @@
       </div>
       <div class="action">
         <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewTask()">
-          Adicionar
+          Criar tarefa
         </b-button>
       </div>
       <hr>
@@ -51,7 +51,6 @@ import AddNewTask from '@/components/modal/AddNewTask'
     },
     methods: {
       toggleNewTask () {
-        console.log('foi')
         this.newTask = !this.newTask
       }
     }
