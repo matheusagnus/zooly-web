@@ -6,9 +6,18 @@
         <h3>{{ data.title }}</h3>
       </template>
       <template #body>
-       
+        <div class="task">
+          <p class="user">{{ data.user }}, </p>
+
+          <p class="description">{{ data.description }}</p>
+
+          <p class="date">{{ data.day }}</p>
+        </div>
       </template>
       <template #footer class="columns is-centered">
+        <div class="action-modal">
+          <b-button class="btn" type="is-danger" @click.native="toggleInfoModal()">Fechar</b-button>
+        </div>
       </template>
     </modal-template>
   </div>
@@ -41,11 +50,24 @@ export default {
 @import "@/assets/stylesheet/base";
 .override-modal /deep/ .modal-box {
   width: 100%;
-  max-width: 55rem;
+  max-width: 35rem;
   height: 100%;
-  max-height: 40rem;
+  max-height: 25rem;
   .modal-body {
     max-height: 100%;
+
+    .task {
+      .user {
+        font-weight: $font-bold;
+        margin-bottom: 1rem;
+      }
+      .date {
+        font-size: 0.85rem;
+        margin-top: 1.75rem;
+        text-align: right;
+        font-weight: $font-light;
+      }
+    }
   }
 }
 
@@ -54,23 +76,12 @@ export default {
 }
 .action-modal {
   display: flex;
-  justify-content: flex-end;
-  .btn-secundary {
+  justify-content: center;
+  .btn {
     margin-top: 1rem;
     height: 2.5rem;
     width: 33%;
     font-weight: 700;
-    color: $primary;
-    border: 0.05rem solid $primary;
-
-    &:hover {
-      background: linear-gradient(
-        to right,
-        rgba(255, 114, 95, 1) 30%,
-        rgba(242, 49, 165, 1) 100%
-      );
-      color: #fafafa;
-    }
   }
 }
 </style>
