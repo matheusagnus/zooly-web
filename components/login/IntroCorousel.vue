@@ -4,7 +4,7 @@
       <img src="@/assets/images/logo.svg" alt="Logomarca do backoffice zooly" />
     </div>
     <b-carousel :pause-info="false">
-      <b-carousel-item v-for="(carousel, i) in 3" :key="i">
+      <b-carousel-item v-for="(carousel, i) in 4" :key="i">
         <section class="hero is-medium">
           <div class="hero-body has-text-centered" v-show="i == 0">
             <img src="@/assets/images/preservar.png" alt="">
@@ -13,6 +13,9 @@
             <img src="@/assets/images/educar.png" alt="">
           </div>
           <div class="hero-body has-text-centered" v-show="i == 2">
+            <img src="@/assets/images/pesquisar.png" alt="">
+          </div>
+          <div class="hero-body has-text-centered" v-show="i == 3">
             <img src="@/assets/images/saude.png" alt="">
           </div>
         </section>

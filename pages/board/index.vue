@@ -14,11 +14,17 @@
     </div>
 
     <div class="board columns is-multiline is-desktop">
-      <div class="card column is-4 is-variable" v-for="task in tasks" :key="task.title">
+      <div class="card column is-4 is-variable" v-for="task in tasks" :key="task.title" @click="toggleTask(task)">
         <h1 class="card-board-title">{{ task.title }}</h1>
         <p class="card-board-day">{{ task.day }}</p>
       </div>
     </div>
+
+    <task 
+      :toggle="task"
+      :data="selectedTask"
+      @closeModal="toggleTask()"
+    />
 
     <add-new-task
       :toggle="newTask"
@@ -29,13 +35,16 @@
 
 <script>
 import AddNewTask from '@/components/modal/AddNewTask'
+import Task from '@/components/modal/Task'
 
   export default {
     name: 'Board',
-    components: { AddNewTask },
+    components: { AddNewTask, Task },
     data () {
       return {
+        task: false,
         newTask: false,
+        selectedTask: {},
         tasks: [
           { title: 'Dar comida para o 1', day: '22/07/2020 ás 19:11' },
           { title: 'Dar comida para o 2', day: '22/07/2020 ás 18:52' },
@@ -52,6 +61,10 @@ import AddNewTask from '@/components/modal/AddNewTask'
     methods: {
       toggleNewTask () {
         this.newTask = !this.newTask
+      },
+      toggleTask (value) {
+        this.selectedTask = value
+        this.task = !this.task
       }
     }
   }
@@ -73,6 +86,7 @@ import AddNewTask from '@/components/modal/AddNewTask'
     max-width: 25%;
     height: 6rem;
     background-color: #fafafa;
+    cursor: pointer;
     .card-board-title {
       font-size: 0.85rem;
       font-weight: $font-bold;
