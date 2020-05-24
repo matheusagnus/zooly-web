@@ -19,13 +19,12 @@
           <b-field label="Permissão">
             <b-select placeholder="Selecione uma permissão">
                 <option
-                  v-for="option in data"
-                  :value="option.role"
-                  :key="option.role">
-                  {{ option.title }}
+                    v-for="option in roles"
+                    :key="option.role">
+                    {{ option.title }}
                 </option>
             </b-select>
-        </b-field>
+          </b-field>
         </form>
       </template>
       <template #footer class="columns is-centered">
@@ -47,26 +46,13 @@ export default {
       name: this.data.name,
       lastname: this.data.lastname,
       email: this.data.email,
-      data: [
+      roles: [
         { role: 1, title: 'Admin' },
         { role: 2, title: 'Gestor' },
         { role: 3, title: 'Médico' },
         { role: 4, title: 'Funcionário' }
-      ],
-      option: null
+      ]
     };
-  },
-  computed: {
-    filteredDataArray() {
-      return this.data.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.name.toLowerCase()) >= 0
-        );
-      });
-    }
   },
   props: {
     toggle: {
