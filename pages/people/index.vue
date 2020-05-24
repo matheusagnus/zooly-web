@@ -29,27 +29,34 @@
             {{ columns.row.role }}
           </b-table-column>
           <b-table-column field="action" label="Ações">
-            <b-icon type="is-danger" icon="pencil" />
-            <b-icon type="is-danger" icon="delete" />
+            <b-icon @click.native="toggleEditUser(columns.row)" type="is-danger" icon="pencil" />
+            <b-icon @click.native="toggleDeleteUser(columns.row)" type="is-danger" icon="delete" />
           </b-table-column>
         </template>
       </b-table>
     </div>
 
     <add-new-user :toggle="newUser" @closeModal="toggleNewUser()" />
+    <edit-user v-if="editUser" :data="selectedUser" :toggle="editUser" @closeModal="toggleEditUser()" />
+    <delete-user :data="selectedUser" :toggle="deleteUser" @closeModal="toggleDeleteUser()" />
   </section>
 </template>
 
 <script>
 import AddNewUser from "@/components/modal/AddNewUser";
+import EditUser from "@/components/modal/EditUser";
+import DeleteUser from "@/components/modal/DeleteUser";
 
   export default {
     name: 'People',
-    components: { AddNewUser },
+    components: { AddNewUser, DeleteUser, EditUser },
     data () {
       return {
         isLoading: false,
         newUser: false,
+        deleteUser: false,
+        editUser: false,
+        selectedUser: null,
         data: [
           { name: 'Matheus', lastname: 'Ferreira', email: 'ferreira.zx@gmail.com', role: 'Admin' },
           { name: 'Angleby', lastname: 'Vamberg', email: 'angleby@gmail.com', role: 'Gestor' },
@@ -61,6 +68,14 @@ import AddNewUser from "@/components/modal/AddNewUser";
     methods: {
       toggleNewUser () {
         this.newUser = !this.newUser
+      },
+      toggleDeleteUser (value) {
+        this.selectedUser = value
+        this.deleteUser = !this.deleteUser
+      },
+      toggleEditUser (value) {
+        this.selectedUser = value
+        this.editUser = !this.editUser
       }
     }
   }
@@ -71,8 +86,13 @@ import AddNewUser from "@/components/modal/AddNewUser";
 
 .people-table {
   margin-top: 1.5rem;
-  /deep/.b-table table {
-    background-color: #fafafa;
+  /deep/.b-table {
+    table {
+      background-color: #fafafa;
+    }
+    .icon {
+      cursor: pointer;
+    }
   }
 }
 </style>
