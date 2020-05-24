@@ -23,7 +23,7 @@
 <script>
 import ModalTemplate from "../shared/ModalTemplate";
 export default {
-  name: "Task",
+  name: "DeleteTask",
   components: { ModalTemplate },
   props: {
     toggle: {

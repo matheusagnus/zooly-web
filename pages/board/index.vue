@@ -11,15 +11,11 @@
       <hr />
     </div>
     <div class="board columns is-multiline is-desktop">
-      <div
-        class="card column is-4 is-variable"
-        v-for="task in tasks"
-        :key="task.title"
-      >
+      <div class="card column is-4 is-variable" v-for="task in tasks" :key="task.title">
         <h1 class="card-board-title">{{ task.title }}</h1>
         <div class="action-icons">
           <b-icon @click.native="toggleTask(task)" type="is-danger" icon="comment-eye" />
-          <b-icon @click.native="toggleEditTask()" type="is-danger" icon="pencil" />
+          <b-icon @click.native="toggleEditTask(task)" type="is-danger" icon="pencil" />
           <b-icon @click.native="toggleDeleteTask(task)" type="is-danger" icon="delete" />
         </div>
         <p class="card-board-day">{{ task.day }}</p>
@@ -28,6 +24,12 @@
 
     <task :toggle="task" :data="selectedTask" @closeModal="toggleTask()" />
     <delete-task :toggle="deleteTask" :data="selectedTask" @closeModal="toggleDeleteTask()" />
+    <edit-task
+      v-if="editTask"
+      :toggle="editTask"
+      :data="selectedTask"
+      @closeModal="toggleEditTask()"
+    />
     <add-new-task :toggle="newTask" @closeModal="toggleNewTask()" />
   </section>
 </template>
@@ -35,11 +37,12 @@
 <script>
 import AddNewTask from "@/components/modal/AddNewTask";
 import DeleteTask from "@/components/modal/DeleteTask";
+import EditTask from "@/components/modal/EditTask";
 import Task from "@/components/modal/Task";
 
 export default {
   name: "Board",
-  components: { AddNewTask, DeleteTask, Task },
+  components: { AddNewTask, DeleteTask, EditTask, Task },
   data() {
     return {
       task: false,
@@ -51,56 +54,65 @@ export default {
         {
           title: "Dar comida para o 1",
           user: "Angleby",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
           day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 2", 
+        {
+          title: "Dar comida para o 2",
           user: "Matheus",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 3", 
+        {
+          title: "Dar comida para o 3",
           user: "Wesley",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 4", 
+        {
+          title: "Dar comida para o 4",
           user: "Angleby",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 5", 
+        {
+          title: "Dar comida para o 5",
           user: "Matheus",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 6", 
+        {
+          title: "Dar comida para o 6",
           user: "Wesley",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 7", 
+        {
+          title: "Dar comida para o 7",
           user: "Angleby",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         },
-        { 
-          title: "Dar comida para o 8", 
+        {
+          title: "Dar comida para o 8",
           user: "Matheus",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/20202" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/20202"
         },
-        { 
-          title: "Dar comida para o 9", 
+        {
+          title: "Dar comida para o 9",
           user: "Wesley",
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020" 
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
+          day: "22/07/2020"
         }
       ]
     };
@@ -113,14 +125,15 @@ export default {
       this.selectedTask = value;
       this.task = !this.task;
     },
-    toggleEditTask (value) {
-      this.editTask = !this.editTask
-    },
-    toggleDeleteTask (value) {
+    toggleEditTask(value) {
       this.selectedTask = value;
-      this.deleteTask = !this.deleteTask
+      this.editTask = !this.editTask;
+    },
+    toggleDeleteTask(value) {
+      this.selectedTask = value;
+      this.deleteTask = !this.deleteTask;
     }
-   }
+  }
 };
 </script>
 
