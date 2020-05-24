@@ -15,30 +15,37 @@
         class="card column is-4 is-variable"
         v-for="task in tasks"
         :key="task.title"
-        @click="toggleTask(task)"
       >
         <h1 class="card-board-title">{{ task.title }}</h1>
+        <div class="action-icons">
+          <b-icon @click.native="toggleTask(task)" type="is-danger" icon="comment-eye" />
+          <b-icon @click.native="toggleEditTask()" type="is-danger" icon="pencil" />
+          <b-icon @click.native="toggleDeleteTask(task)" type="is-danger" icon="delete" />
+        </div>
         <p class="card-board-day">{{ task.day }}</p>
       </div>
     </div>
 
     <task :toggle="task" :data="selectedTask" @closeModal="toggleTask()" />
-
+    <delete-task :toggle="deleteTask" :data="selectedTask" @closeModal="toggleDeleteTask()" />
     <add-new-task :toggle="newTask" @closeModal="toggleNewTask()" />
   </section>
 </template>
 
 <script>
 import AddNewTask from "@/components/modal/AddNewTask";
+import DeleteTask from "@/components/modal/DeleteTask";
 import Task from "@/components/modal/Task";
 
 export default {
   name: "Board",
-  components: { AddNewTask, Task },
+  components: { AddNewTask, DeleteTask, Task },
   data() {
     return {
       task: false,
       newTask: false,
+      editTask: false,
+      deleteTask: false,
       selectedTask: {},
       tasks: [
         {
@@ -105,8 +112,15 @@ export default {
     toggleTask(value) {
       this.selectedTask = value;
       this.task = !this.task;
+    },
+    toggleEditTask (value) {
+      this.editTask = !this.editTask
+    },
+    toggleDeleteTask (value) {
+      this.selectedTask = value;
+      this.deleteTask = !this.deleteTask
     }
-  }
+   }
 };
 </script>
 
@@ -121,20 +135,26 @@ export default {
   justify-content: center;
   margin-top: 1.5rem;
   .card {
+    display: flex;
     margin: 0.75rem;
     border-top: 0.25rem solid $primary;
     max-width: 25%;
     height: 6rem;
     background-color: #fafafa;
-    cursor: pointer;
     .card-board-title {
       font-size: 0.85rem;
       font-weight: $font-bold;
     }
-
+    .action-icons {
+      cursor: pointer;
+      position: absolute;
+      right: 0.35rem;
+    }
     .card-board-day {
+      position: absolute;
+      right: 0.35rem;
+      bottom: 0.35rem;
       font-size: 0.7rem;
-      margin-top: 1.75rem;
       text-align: right;
       font-weight: $font-light;
     }
