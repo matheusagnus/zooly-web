@@ -11,6 +11,20 @@
       <hr />
     </div>
     <div class="board columns is-multiline is-desktop">
+      <div class="filter">
+        <b-field>
+            <b-autocomplete
+              v-model="user"
+              :users="filteredDataArray"
+              placeholder="Selecione o responsável..."
+              icon="magnify"
+              editable
+              @select="option => selected = option"
+            >
+              <template slot="empty">Usuário não existe</template>
+            </b-autocomplete>
+          </b-field>
+      </div>
       <div class="card column is-4 is-variable" v-for="task in tasks" :key="task.title">
         <h1 class="card-board-title">{{ task.title }}</h1>
         <div class="action-icons">
@@ -49,6 +63,9 @@ export default {
       newTask: false,
       editTask: false,
       deleteTask: false,
+      users: ["Matheus", "Wesley", "Angleby"],
+      user: "",
+      selected: null,
       selectedTask: {},
       tasks: [
         {
@@ -117,6 +134,18 @@ export default {
       ]
     };
   },
+  computed: {
+    filteredDataArray() {
+      return this.users.filter(option => {
+        return (
+          option
+            .toString()
+            .toLowerCase()
+            .indexOf(this.user.toLowerCase()) >= 0
+        );
+      });
+    }
+  },
   methods: {
     toggleNewTask() {
       this.newTask = !this.newTask;
@@ -147,6 +176,13 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 1.5rem;
+  .filter {
+    width: 100%;
+    .field {
+      width: 33%;
+      margin: 0 auto 1rem auto;
+    }
+  }
   .card {
     display: flex;
     margin: 0.75rem;
@@ -175,8 +211,13 @@ export default {
 }
 
 @media (max-width: 64rem) {
-  .board .card {
-    max-width: 100%;
+  .board {
+    .filter .field {
+      width: 80%;
+    }
+    .card {
+      max-width: 100%;
+    }
   }
 }
 </style>
