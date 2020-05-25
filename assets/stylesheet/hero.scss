@@ -2,7 +2,7 @@
   display: flex;
   .text {
     margin-bottom: 1.5rem;
-    width: 50%;
+    width: 60%;
     .title {
       margin-bottom: 0.25;
     }
@@ -13,6 +13,7 @@
     }
   }
   .action {
+    width: 40%;
     position: absolute;
     right: 0;
   }

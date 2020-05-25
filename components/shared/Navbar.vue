@@ -6,10 +6,10 @@
         </b-navbar-item>
       </template>
         <template slot="start">
-            <b-navbar-item href="#" v-if="true">
+            <b-navbar-item :to="{ path: '/' }" v-if="true">
                 Zooly Backoffice
             </b-navbar-item>
-            <b-navbar-item href="#" v-else>
+            <b-navbar-item :to="{ path: '/' }" v-else>
               <b-icon icon="chevron-left" /> <span>Voltar</span>
             </b-navbar-item>
         </template>
