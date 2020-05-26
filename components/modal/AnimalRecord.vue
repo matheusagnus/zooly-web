@@ -1,0 +1,170 @@
+<template>
+  <div>
+    <modal-template v-if="toggle" class="override-modal">
+      <template #header>
+        <b-icon icon="close" @click.native="toggleInfoModal()" />
+        <h3>Prontuário Animal</h3>
+      </template>
+      <template #body>
+        <div class="animal-record">
+          <div class="group-info">
+            <h1 class="group-title">Apelido</h1>
+            <p class="group-text">Mel</p>
+          </div>
+
+          <div class="group-info">
+            <h1 class="group-title">Nome Popular</h1>
+            <p class="group-text">Cão</p>
+          </div>
+
+          <div class="group-info">
+            <h1 class="group-title">Nome Científico</h1>
+            <p class="group-text">Canis lupus familiaris</p>
+          </div>
+
+          <hr>
+
+          <div class="group-info">
+            <h1 class="group-title">Responsável</h1>
+            <p class="group-text">Matheus Ferreira</p>
+          </div>
+
+          <div class="group-info">
+            <h1 class="group-title">Data de Entrada</h1>
+            <p class="group-text">27/04/2020</p>
+          </div>
+
+          <div class="group-info">
+            <h1 class="group-title">Descrição</h1>
+            <p class="group-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam natus aut veniam dolorum, eos praesentium deserunt!</p>
+          </div>
+
+          <hr>
+
+          <b-icon type="is-danger" icon="launch" />
+
+          <div class="group-info">
+            <h1 class="group-title">Biometrias</h1>
+          </div>
+
+          <div class="biometrys" v-for="option in biometry" :key="option.id">
+            <p><strong>{{ option.date }} -</strong> {{ option.responsible }}</p>
+            <b-icon type="is-danger" icon="eye" />
+          </div>
+
+        </div>
+      </template>
+      <template #footer class="columns is-centered">
+        <div class="action-modal">
+          <b-button class="btn-secundary" @click.native="toggleInfoModal()">Fechar</b-button>
+        </div>
+      </template>
+    </modal-template>
+  </div>
+</template>
+
+<script>
+import ModalTemplate from "../shared/ModalTemplate";
+export default {
+  name: "AnimalRecord",
+  components: { ModalTemplate },
+  data () {
+    return {
+      biometry: [
+        { id: 1, date: '24/07/2020', responsible: 'Matheus Ferreira' },
+        { id: 2, date: '23/05/2020', responsible: 'Matheus Ferreira' },
+        { id: 3, date: '22/04/2020', responsible: 'Matheus Ferreira' },
+        { id: 4, date: '21/03/2020', responsible: 'Matheus Ferreira' },
+        { id: 5, date: '20/01/2020', responsible: 'Matheus Ferreira' },
+      ]
+    }
+  },
+  props: {
+    toggle: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    toggleInfoModal() {
+      this.$emit("closeModal");
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import "@/assets/stylesheet/base";
+.override-modal /deep/ .modal-box {
+  width: 100%;
+  max-width: 65rem;
+  height: 100%;
+  max-height: 40rem;
+  .modal-body {
+    max-height: 100%;
+    .animal-record {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      .icon {
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+      }
+      hr {
+        width: 50%;
+        margin: 1.5rem auto;
+        border: 0.05rem solid $primary;
+      }
+      .biometrys {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.35rem;
+        strong {
+          color: $primary;
+        }
+      }
+      .group-info {
+        margin-bottom: 0.75rem;
+        .group-title {
+          font-weight: $font-bold;
+        }
+        .group-text {
+          text-align: justify;
+          text-justify: inter-word;
+        }
+      }
+    }
+  }
+}
+
+.control /deep/.help.counter {
+  display: none;
+}
+.action-modal {
+  display: flex;
+  justify-content: center;
+  .btn {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 33%;
+    font-weight: 700;
+  }
+  .btn-secundary {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 33%;
+    font-weight: 700;
+    color: $primary;
+    border: 0.05rem solid $primary;
+
+    &:hover {
+      background: linear-gradient(
+        to right,
+        rgba(255, 114, 95, 1) 30%,
+        rgba(242, 49, 165, 1) 100%
+      );
+      color: #fafafa;
+    }
+  }
+}
+</style>
