@@ -6,7 +6,7 @@
         <p class="subtitle">Todas as pessoas que têm acesso a aplicação</p>
       </div>
       <div class="action">
-        <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewUser()">Criar pessoa</b-button>
+        <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewUser()">Pessoa</b-button>
       </div>
       <hr />
     </div>

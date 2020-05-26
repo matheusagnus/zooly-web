@@ -6,7 +6,7 @@
         <p class="subtitle">Aqui estão as tarefas ativas para você</p>
       </div>
       <div class="action">
-        <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewTask()">Criar tarefa</b-button>
+        <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewTask()">Tarefa</b-button>
       </div>
       <hr />
     </div>

@@ -5,6 +5,9 @@
         <h1 class="title">Animais</h1>
         <p class="subtitle">Todos os animais cadastrados</p>
       </div>
+      <div class="action">
+        <b-button type="is-danger" icon-left="plus" rounded @click="toggleAddAnimal()">Animal</b-button>
+      </div>
       <hr />
     </div>
 
@@ -21,8 +24,8 @@
               type="is-danger"
               icon="file-find"
             />
-            <b-icon @click.native="toggleEditUser(columns.row)" type="is-danger" icon="pencil" />
-            <b-icon @click.native="toggleDeleteUser(columns.row)" type="is-danger" icon="delete" />
+            <b-icon @click.native="toggleEditAnimal(columns.row)" type="is-danger" icon="pencil" />
+            <b-icon @click.native="toggleDeleteAnimal(columns.row)" type="is-danger" icon="delete" />
           </b-table-column>
         </template>
       </b-table>
@@ -33,40 +36,65 @@
       :toggle="animalRecord"
       @closeModal="toggleAnimalRecord()"
     />
+    <add-animal
+      :toggle="addAnimal"
+      @closeModal="toggleAddAnimal()"
+    />
+    <edit-animal
+      :data="selectedAnimal"
+      v-if="editAnimal"
+      :toggle="editAnimal"
+      @closeModal="toggleEditAnimal()"
+    />
+    <delete-animal
+      :data="selectedAnimal"
+      :toggle="deleteAnimal"
+      @closeModal="toggleDeleteAnimal()"
+    />
   </section>
 </template>
 
 <script>
 import AnimalRecord from "@/components/modal/AnimalRecord";
+import AddAnimal from "@/components/modal/AddAnimal";
+import EditAnimal from "@/components/modal/EditAnimal";
+import DeleteAnimal from "@/components/modal/DeleteAnimal";
 
 export default {
   name: "Animal",
-  components: { AnimalRecord },
+  components: { AnimalRecord, AddAnimal, EditAnimal, DeleteAnimal },
   data() {
     return {
       isLoading: false,
       animalRecord: false,
-      deleteUser: false,
-      editUser: false,
+      addAnimal: false,
+      editAnimal: false,
+      deleteAnimal: false,
       selectedAnimal: null,
       data: [
         {
           id: 1,
           nickname: "Mel",
           popular_name: "Cão",
-          responsible: "Matheus"
+          scientific_name: "Canis lupus familiaris",
+          responsible: "Matheus",
+          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
         },
         {
           id: 2,
           nickname: "Meggie",
           popular_name: "Cão",
-          responsible: "Angleby"
+          scientific_name: "Canis lupus familiaris",
+          responsible: "Angleby",
+          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
         },
         {
           id: 3,
           nickname: "Phablo",
           popular_name: "Elefante",
-          responsible: "Wesley"
+          scientific_name: "Elephas maximus",
+          responsible: "Wesley",
+          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
         }
       ]
     }
@@ -75,6 +103,17 @@ export default {
     toggleAnimalRecord(value) {
       this.selectedAnimal = value;
       this.animalRecord = !this.animalRecord;
+    },
+    toggleEditAnimal (value) {
+      this.selectedAnimal = value;
+      this.editAnimal = !this.editAnimal
+    },
+    toggleAddAnimal () {
+      this.addAnimal = !this.addAnimal
+    },
+    toggleDeleteAnimal (value) {
+      this.selectedAnimal = value;
+      this.deleteAnimal = !this.deleteAnimal
     }
   }
 };
