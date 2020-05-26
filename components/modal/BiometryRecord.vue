@@ -3,10 +3,12 @@
     <modal-template v-if="toggle" class="override-modal">
       <template #header>
         <b-icon icon="close" @click.native="toggleInfoModal()" />
-        <h3>Prontuário Animal</h3>
+        <h3>Biometria Animal</h3>
       </template>
       <template #body>
         <div class="animal-record">
+          <b-icon type="is-danger" icon="launch" />
+
           <div class="group-info">
             <h1 class="group-title">Apelido</h1>
             <p class="group-text">Mel</p>
@@ -22,62 +24,64 @@
             <p class="group-text">Canis lupus familiaris</p>
           </div>
 
-          <hr>
-
           <div class="group-info">
             <h1 class="group-title">Responsável</h1>
             <p class="group-text">Matheus Ferreira</p>
           </div>
 
+          <hr>
+
           <div class="group-info">
-            <h1 class="group-title">Data de Entrada</h1>
+            <h1 class="group-title">Data de Medida</h1>
             <p class="group-text">27/04/2020</p>
           </div>
 
           <div class="group-info">
-            <h1 class="group-title">Descrição</h1>
-            <p class="group-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam natus aut veniam dolorum, eos praesentium deserunt!</p>
+            <h1 class="group-title">Observação</h1>
+            <p class="group-text">Animal de grande porte com problemas de alimentação e possível insuficiência renal. Peso em declínio segundo a última medida.</p>
           </div>
 
           <hr>
 
-          <b-icon type="is-danger" icon="plus" />
+          <div class="group-info">
+            <h1 class="group-title">Prescrição</h1>
+            <p class="group-text">Medicá-lo com Nutrifull Dog Organnact, 1cp de 12h/12h</p>
+          </div>
 
           <div class="group-info">
-            <h1 class="group-title">Biometrias</h1>
+            <h1 class="group-title">Medidas</h1>
           </div>
 
-          <div class="biometrys" v-for="option in biometry" :key="option.id">
-            <p><strong>{{ option.date }} -</strong> {{ option.responsible }}</p>
-            <b-icon @click.native="toggleBiometryRecord()" type="is-danger" icon="eye" />
+          <div class="biometrys">
+            <p><strong>Peso -</strong> 19kg</p>
           </div>
-
+          <div class="biometrys">
+            <p><strong>Altura -</strong> 49cm</p>
+          </div>
+          <div class="biometrys">
+            <p><strong>Comprimeto -</strong> Não calculado</p>
+          </div>
+          <div class="biometrys">
+            <p><strong>Largura -</strong> Não calculado</p>
+          </div>
         </div>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary" @click.native="toggleInfoModal()">Fechar</b-button>
+          <b-button class="btn-secundary" @click.native="toggleInfoModal()">Voltar</b-button>
         </div>
       </template>
     </modal-template>
-
-    <biometry-record 
-      :toggle="biometryRecord"
-      @closeModal="toggleBiometryRecord()"
-    />
   </div>
 </template>
 
 <script>
 import ModalTemplate from "../shared/ModalTemplate";
-import BiometryRecord from '@/components/modal/BiometryRecord'
-
 export default {
-  name: "AnimalRecord",
-  components: { ModalTemplate, BiometryRecord },
+  name: "BiometryRecord",
+  components: { ModalTemplate },
   data () {
     return {
-      biometryRecord: false,
       biometry: [
         { id: 1, date: '24/07/2020', responsible: 'Matheus Ferreira' },
         { id: 2, date: '23/05/2020', responsible: 'Matheus Ferreira' },
@@ -96,9 +100,6 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
-    },
-    toggleBiometryRecord () {
-      this.biometryRecord = !this.biometryRecord
     }
   }
 };
