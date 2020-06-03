@@ -16,6 +16,9 @@
           <b-field label="E-mail">
             <b-input v-model="email" placeholder="Digite aqui..." />
           </b-field>
+          <b-field label="Senha">
+            <b-input placeholder="Digite aqui..." v-model="password" password-reveal />
+          </b-field>
           <b-field label="Permissão">
             <b-select placeholder="Selecione uma permissão">
                 <option
@@ -46,6 +49,7 @@ export default {
       name: this.data.name,
       lastname: this.data.lastname,
       email: this.data.email,
+      password: null,
       roles: [
         { role: 1, title: 'Admin' },
         { role: 2, title: 'Gestor' },

@@ -16,6 +16,9 @@
           <b-field label="E-mail">
             <b-input placeholder="Digite aqui..." />
           </b-field>
+          <b-field label="Senha">
+            <b-input placeholder="Digite aqui..." v-model="password" password-reveal />
+          </b-field>
           <b-field label="Permissão">
             <b-select placeholder="Selecione uma permissão">
                 <option
@@ -43,6 +46,7 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
+      password: null,
       data: [
         { role: 1, title: 'Admin' },
         { role: 2, title: 'Gestor' },
