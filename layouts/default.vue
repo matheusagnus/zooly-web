@@ -15,7 +15,8 @@
 import Navbar from '@/components/shared/Navbar'
 import Stepped from '@/components/shared/Stepped'
 export default {
-  components: { Navbar, Stepped }
+  components: { Navbar, Stepped },
+  middleware: 'router-guard'
 }
 </script>
 

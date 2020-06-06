@@ -18,5 +18,7 @@
     "nuxt-buefy": "^0.3.2",
     "sass-loader": "^8.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
 }

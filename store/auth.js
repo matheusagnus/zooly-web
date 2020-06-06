@@ -1,4 +1,3 @@
-import { underLoadingFunction } from './helpers/under-loading'
 import https from '@/network/https'
 
 export const state = () => ({
@@ -15,6 +14,7 @@ export const getters = {
 export const mutations = {
   setToken: (state, payload) => {
     state.token = payload
+    sessionStorage.setItem('token', payload)
   }
 }
 
@@ -27,7 +27,8 @@ export const actions = {
           'Content-Type': 'application/json;charset=UTF-8'
         }
       }).then(res => {
-        commit('setToken', res.data)
+        commit('setToken', res.data.jwt)
+        dispatch('user/getUser', res.data.jwt, {root: true})
         this.$router.push({
           path: '/'
         }) 
@@ -35,6 +36,7 @@ export const actions = {
     } catch (err) {
       throw err
     } finally {
+      
       dispatch('loading/changeLoadingState', false, {root: true})
     }
   },
