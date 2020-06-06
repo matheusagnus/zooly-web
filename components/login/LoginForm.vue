@@ -7,28 +7,28 @@
       <div class="title">
         <h2>Login</h2>
       </div>
-      <div class="form">
+      <form class="form">
         <b-field
           label="E-mail"
           :type="{ 'is-danger': hasError }"
-          :message="{ 'Precisamos do seu e-mail para o login': hasError }"
+          :message="{ 'Talvez seu e-mail esteja errado, tente novamente': hasError }"
         >
-          <b-input icon="account" placeholder="Seu e-mail..."></b-input>
+          <b-input v-model="email" icon="account" placeholder="Seu e-mail..." />
         </b-field>
 
         <b-field
           label="Senha"
           :type="{ 'is-danger': hasError }"
           :message="[
-            { 'Precisamos da senha para o login': hasError }
+            { 'Você tem certeza que essa é a senha certa?': hasError }
           ]"
           >
-          <b-input icon="lock-question" type="password" placeholder="Sua senha..."></b-input>
+          <b-input v-model="password" icon="lock-question" type="password" placeholder="Sua senha..." />
         </b-field>
 
-        <b-button class="btn-primary" @click="login">Acessar</b-button>
-      </div>
+        <b-button class="btn-primary" @click="login()">Acessar</b-button>
       <p>Esqueceu sua senha? <nuxt-link to="/auth/recover">Recupere a sua senha</nuxt-link></p>
+      </form>
     </div>
   </section>
 </template>
@@ -38,17 +38,24 @@ export default {
   name: 'LoginForm',
   data () {
     return {
+      email: null,
+      password: null,
       hasError: false
     }
   },
   methods: {
     login () {
-      this.$router.push({
-        path: '/'
-      })
+      if (this.email && this.password) {
+        this.$store.dispatch('auth/doLogin', {
+          email: this.email,
+          password: this.password
+        })
+      } else {
+        this.hasError = true
+      }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

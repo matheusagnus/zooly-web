@@ -1,11 +1,17 @@
 <template>
   <div id="app-view">
+    <b-loading :is-full-page="true" :active.sync="isLoading" :can-cancel="true" />
     <nuxt />
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    isLoading () {
+      return this.$store.state.loading.isLoading
+    } 
+  }
 }
 </script>
 
