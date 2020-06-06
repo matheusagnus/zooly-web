@@ -27,9 +27,7 @@
     name: 'Navbar',
     methods: {
       logout () {
-        this.$router.push({
-        path: '/auth/login'
-      })
+        this.$store.dispatch('auth/doLogout')
       }
     }
   }

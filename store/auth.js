@@ -37,5 +37,11 @@ export const actions = {
     } finally {
       dispatch('loading/changeLoadingState', false, {root: true})
     }
+  },
+  doLogout ({ commit }) {
+    commit('setToken', null)
+    this.$router.push({
+      path: '/auth/login'
+    }) 
   }
 }
