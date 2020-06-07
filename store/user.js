@@ -1,25 +1,39 @@
 import  jwt from '~/plugins/jwt';
 
 export const state = () => ({
-  value: 'myvalue'
+  user: {
+    id: null,
+    name: null,
+    email: null, 
+    role: null
+  }
 })
 
 export const getters = {
-  getterValue: state => {
-    return state.value
-  }
+
 }
 
 export const mutations = {
-  updateValue: (state, payload) => {
-    state.value = payload
+  userId: (state, payload) => {
+    state.user = {...state.user, id: payload}
+  },
+  userName: (state, payload) => {
+    state.user = {...state.user, name: payload}
+  },
+  userEmail: (state, payload) => {
+    state.user = {...state.user, email: payload}
+  },
+  userRole: (state, payload) => {
+    state.user = {...state.user, role: payload}
   }
 }
 
 export const actions = {
   getUser({ commit }, payload) {
-    // todo
     let user = jwt.decode(payload)
-    console.log(user)
+    commit('userId', user.userInfos.id)
+    commit('userName', user.userInfos.name)
+    commit('userEmail', user.userInfos.email)
+    commit('userRole', user.userInfos.role.id)
   }
 }
