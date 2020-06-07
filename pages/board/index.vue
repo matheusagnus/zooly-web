@@ -5,13 +5,13 @@
         <h1 class="title">Quadro de Tarefas</h1>
         <p class="subtitle">Aqui estão as tarefas ativas para você</p>
       </div>
-      <div class="action">
+      <div v-if="role != 4" class="action">
         <b-button type="is-danger" icon-left="plus" rounded @click="toggleNewTask()">Tarefa</b-button>
       </div>
       <hr />
     </div>
     <div class="board columns is-multiline is-desktop">
-      <div class="filter">
+      <div v-if="role === 1 || role === 2" class="filter">
         <b-field>
             <b-autocomplete
               v-model="user"
@@ -29,8 +29,8 @@
         <h1 class="card-board-title">{{ task.title }}</h1>
         <div class="action-icons">
           <b-icon @click.native="toggleTask(task)" type="is-danger" icon="comment-eye" />
-          <b-icon @click.native="toggleEditTask(task)" type="is-danger" icon="pencil" />
-          <b-icon @click.native="toggleDeleteTask(task)" type="is-danger" icon="delete" />
+          <b-icon v-if="role != 4" @click.native="toggleEditTask(task)" type="is-danger" icon="pencil" />
+          <b-icon v-if="role != 4" @click.native="toggleDeleteTask(task)" type="is-danger" icon="delete" />
         </div>
         <p class="card-board-day">{{ task.day }}</p>
       </div>
@@ -59,6 +59,7 @@ export default {
   components: { AddNewTask, DeleteTask, EditTask, Task },
   data() {
     return {
+      role: null,
       task: false,
       newTask: false,
       editTask: false,
@@ -145,6 +146,9 @@ export default {
         );
       });
     }
+  },
+  mounted () {
+    this.role = this.$store.state.user.user.role
   },
   methods: {
     toggleNewTask() {

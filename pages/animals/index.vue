@@ -25,7 +25,7 @@
               icon="file-find"
             />
             <b-icon @click.native="toggleEditAnimal(columns.row)" type="is-danger" icon="pencil" />
-            <b-icon @click.native="toggleDeleteAnimal(columns.row)" type="is-danger" icon="delete" />
+            <b-icon v-if="role != 4" @click.native="toggleDeleteAnimal(columns.row)" type="is-danger" icon="delete" />
           </b-table-column>
         </template>
       </b-table>
@@ -98,6 +98,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.role = this.$store.state.user.user.role
   },
   methods: {
     toggleAnimalRecord(value) {
