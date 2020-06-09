@@ -13,6 +13,7 @@
 
     <div class="people-table">
         <b-table
+          v-if="data"
           :data="data"
           :loading="isLoading"
           :checkable="false"
@@ -34,6 +35,7 @@
           </b-table-column>
         </template>
       </b-table>
+      <no-data v-else />
     </div>
 
     <add-new-user :toggle="newUser" @closeModal="toggleNewUser()" />
@@ -46,10 +48,10 @@
 import AddNewUser from "@/components/modal/AddNewUser";
 import EditUser from "@/components/modal/EditUser";
 import DeleteUser from "@/components/modal/DeleteUser";
-
+import NoData from '@/components/shared/NoData'
   export default {
     name: 'People',
-    components: { AddNewUser, DeleteUser, EditUser },
+    components: { AddNewUser, DeleteUser, EditUser, NoData },
     data () {
       return {
         newUser: false,
@@ -63,7 +65,11 @@ import DeleteUser from "@/components/modal/DeleteUser";
         return this.$store.state.person.isLoading
       },
       data () {
-        return this.$store.state.person.dataPerson
+        if (this.$store.state.person.dataPerson) {
+          return this.$store.state.person.dataPerson
+        }
+        
+        return false
       }
     },
     mounted() {
