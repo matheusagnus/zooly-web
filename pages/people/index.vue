@@ -12,8 +12,9 @@
     </div>
 
     <div class="people-table">
+        <no-data v-if="!data" />
         <b-table
-          v-if="data"
+          v-else
           :data="data"
           :loading="isLoading"
           :checkable="false"
@@ -35,7 +36,6 @@
           </b-table-column>
         </template>
       </b-table>
-      <no-data v-else />
     </div>
 
     <add-new-user :toggle="newUser" @closeModal="toggleNewUser()" />

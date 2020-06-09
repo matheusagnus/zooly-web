@@ -16,10 +16,19 @@
           <b-field label="Nome Científico">
             <b-input placeholder="Digite aqui..." />
           </b-field>
+
+          <hr>
+
           <b-field label="Responsável">
             <b-input placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Observação">
+            <b-input type="textarea" />
+          </b-field>
+
+          <hr>
+
+          <b-field label="Prescrição">
             <b-input type="textarea" />
           </b-field>
         </form>
@@ -78,6 +87,12 @@ export default {
   max-height: 40rem;
   .modal-body {
     max-height: 100%;
+
+    hr {
+      width: 50%;
+      margin: 1.5rem auto;
+      border: 0.05rem solid $primary;
+    }
   }
 }
 

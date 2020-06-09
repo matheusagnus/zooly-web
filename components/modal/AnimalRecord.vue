@@ -41,7 +41,7 @@
 
           <hr>
 
-          <b-icon type="is-danger" icon="plus" />
+          <b-icon @click.native="toggleAddBiometry()" type="is-danger" icon="plus" />
 
           <div class="group-info">
             <h1 class="group-title">Biometrias</h1>
@@ -61,6 +61,10 @@
       </template>
     </modal-template>
 
+    <add-biometry 
+      :toggle="addBiometry"
+      @closeModal="toggleAddBiometry()"
+    />
     <biometry-record 
       :toggle="biometryRecord"
       @closeModal="toggleBiometryRecord()"
@@ -71,12 +75,14 @@
 <script>
 import ModalTemplate from "../shared/ModalTemplate";
 import BiometryRecord from '@/components/modal/BiometryRecord'
+import AddBiometry from '@/components/modal/AddBiometry'
 
 export default {
   name: "AnimalRecord",
-  components: { ModalTemplate, BiometryRecord },
+  components: { ModalTemplate, BiometryRecord, AddBiometry },
   data () {
     return {
+      addBiometry: false,
       biometryRecord: false,
       biometry: [
         { id: 1, date: '24/07/2020', responsible: 'Matheus Ferreira' },
@@ -99,6 +105,9 @@ export default {
     },
     toggleBiometryRecord () {
       this.biometryRecord = !this.biometryRecord
+    }, 
+    toggleAddBiometry () {
+      this.addBiometry = !this.addBiometry
     }
   }
 };

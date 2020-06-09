@@ -23,6 +23,7 @@
             <b-select v-model="selectedRole" @input="isReady()" placeholder="Selecione uma permissão">
                 <option
                     v-for="option in data"
+                    :value="option.role"
                     :key="option.role">
                     {{ option.title }}
                 </option>
@@ -84,7 +85,6 @@ export default {
       this.$emit("closeModal");
     },
     isReady () {
-      console.log(this.name, this.lastname, this.email, this.password, this.selectedRole)
       if (
         this.name &&
         this.lastname &&
@@ -92,7 +92,6 @@ export default {
         this.password &&
         this.selectedRole
       ) {
-        console.log('foi')
         this.disableButton = false
       }
     },
