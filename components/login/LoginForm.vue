@@ -74,6 +74,7 @@ export default {
       }
     }
     p {
+      margin-top: 1rem;
       font-size: 0.85rem;
       text-align: center;
     }

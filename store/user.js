@@ -34,6 +34,6 @@ export const actions = {
     commit('userId', user.userInfos.id)
     commit('userName', user.userInfos.name)
     commit('userEmail', user.userInfos.email)
-    commit('userRole', user.userInfos.role.id)
+    commit('userRole', user.userInfos.userRole.id)
   }
 }

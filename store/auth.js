@@ -1,4 +1,5 @@
 import https from '@/network/https'
+import Swal from 'sweetalert2'
 
 export const state = () => ({
   url: https.baseUrl,
@@ -34,9 +35,13 @@ export const actions = {
         }) 
       })
     } catch (err) {
+      Swal.fire({
+        title: 'Oopss...',
+        text: 'Parece que suas credenciais não foram autorizadas. Tente novamente!',
+        icon: 'warning'
+      })
       throw err
     } finally {
-      
       dispatch('loading/changeLoadingState', false, {root: true})
     }
   },

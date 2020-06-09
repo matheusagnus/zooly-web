@@ -25,8 +25,8 @@
           <b-table-column field="email" label="E-mail">
             {{ columns.row.email }}
           </b-table-column>
-          <b-table-column field="role" label="Permissão">
-            {{ columns.row.role }}
+          <b-table-column field="userRole.id" label="Permissão">
+            {{ columns.row.userRole.id }}
           </b-table-column>
           <b-table-column field="action" label="Ações">
             <b-icon @click.native="toggleEditUser(columns.row)" type="is-danger" icon="pencil" />
@@ -52,18 +52,22 @@ import DeleteUser from "@/components/modal/DeleteUser";
     components: { AddNewUser, DeleteUser, EditUser },
     data () {
       return {
-        isLoading: false,
         newUser: false,
         deleteUser: false,
         editUser: false,
-        selectedUser: null,
-        data: [
-          { name: 'Matheus', lastname: 'Ferreira', email: 'ferreira.zx@gmail.com', role: 'Admin' },
-          { name: 'Angleby', lastname: 'Vamberg', email: 'angleby@gmail.com', role: 'Gestor' },
-          { name: 'Wesley', lastname: 'Garreto', email: 'welsey@gmail.com', role: 'Médico' },
-          { name: 'Eliel', lastname: 'Cruz', email: 'eliel@gmail.com', role: 'Funcionário' },
-        ]
+        selectedUser: null
       }
+    },
+    computed: {
+      isLoading () {
+        return this.$store.state.person.isLoading
+      },
+      data () {
+        return this.$store.state.person.dataPerson
+      }
+    },
+    mounted() {
+      this.getPersons()
     },
     methods: {
       toggleNewUser () {
@@ -76,6 +80,9 @@ import DeleteUser from "@/components/modal/DeleteUser";
       toggleEditUser (value) {
         this.selectedUser = value
         this.editUser = !this.editUser
+      },
+      getPersons () {
+        this.$store.dispatch('person/getPersons')
       }
     }
   }

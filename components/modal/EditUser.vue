@@ -8,21 +8,19 @@
       <template #body>
         <form>
           <b-field label="Nome">
-            <b-input v-model="name" placeholder="Digite aqui..." />
-          </b-field>
-          <b-field label="Sobrenome">
-            <b-input v-model="lastname" placeholder="Digite aqui..." />
+            <b-input v-model="name" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="E-mail">
-            <b-input v-model="email" placeholder="Digite aqui..." />
+            <b-input v-model="email" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Senha">
-            <b-input placeholder="Digite aqui..." v-model="password" password-reveal />
+            <b-input v-model="password" @input="isReady()" placeholder="Digite aqui..." password-reveal />
           </b-field>
           <b-field label="Permissão">
-            <b-select placeholder="Selecione uma permissão">
+            <b-select v-model="selectedRole" @input="isReady()" placeholder="Selecione uma permissão">
                 <option
                     v-for="option in roles"
+                    :value="option.role"
                     :key="option.role">
                     {{ option.title }}
                 </option>
@@ -32,7 +30,7 @@
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Editar</b-button>
+          <b-button @click="edit" class="btn-secundary" :disabled="disableButton">Editar</b-button>
         </div>
       </template>
     </modal-template>
@@ -46,10 +44,11 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
+      disableButton: true,
       name: this.data.name,
-      lastname: this.data.lastname,
       email: this.data.email,
       password: null,
+      selectedRole: null,
       roles: [
         { role: 1, title: 'Admin' },
         { role: 2, title: 'Gestor' },
@@ -71,8 +70,28 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      if (
+        this.name &&
+        this.email &&
+        this.password &&
+        this.selectedRole
+      ) {
+        console.log(this.name, this.email, this.password, this.selectedRole)
+        this.disableButton = false
+      }
+    },
+    edit () {
+      this.$store.dispatch('person/editPerson', {
+        id: this.data.id,
+        name: this.name,
+        email: this.email, 
+        password: this.password,
+        userRole: { id: this.selectedRole }
+      })
     }
-  }
+  },
 };
 </script>
 
@@ -91,6 +110,12 @@ export default {
 .control /deep/.help.counter {
   display: none;
 }
+
+.control.has-icons-left .icon,
+.control.has-icons-right .icon {
+  pointer-events: auto !important;
+}
+
 .action-modal {
   display: flex;
   justify-content: flex-end;
