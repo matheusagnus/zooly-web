@@ -8,19 +8,19 @@
       <template #body>
         <form>
           <b-field label="Nome">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="name" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Sobrenome">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="lastname" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="E-mail">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="email" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Senha">
-            <b-input placeholder="Digite aqui..." v-model="password" password-reveal />
+            <b-input @input="isReady()" placeholder="Digite aqui..." v-model="password" password-reveal />
           </b-field>
           <b-field label="Permissão">
-            <b-select placeholder="Selecione uma permissão">
+            <b-select v-model="selectedRole" @input="isReady()" placeholder="Selecione uma permissão">
                 <option
                     v-for="option in data"
                     :key="option.role">
@@ -32,7 +32,7 @@
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Criar</b-button>
+          <b-button @click="create()" class="btn-secundary" :disabled="disableButton">Criar</b-button>
         </div>
       </template>
     </modal-template>
@@ -46,7 +46,12 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
+      disableButton: true,
+      name: null,
+      lastname: null,
       password: null,
+      email: null, 
+      selectedRole: null,
       data: [
         { role: 1, title: 'Admin' },
         { role: 2, title: 'Gestor' },
@@ -77,6 +82,28 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      console.log(this.name, this.lastname, this.email, this.password, this.selectedRole)
+      if (
+        this.name &&
+        this.lastname &&
+        this.email &&
+        this.password &&
+        this.selectedRole
+      ) {
+        console.log('foi')
+        this.disableButton = false
+      }
+    },
+    create () {
+      this.$store.dispatch('person/createPerson', {
+        id: this.data.id,
+        name: `${this.name} ${this.lastname}`,
+        email: this.email, 
+        password: this.password,
+        userRole: { id: this.selectedRole }
+      })
     }
   }
 };

@@ -78,7 +78,6 @@ export default {
         this.password &&
         this.selectedRole
       ) {
-        console.log(this.name, this.email, this.password, this.selectedRole)
         this.disableButton = false
       }
     },
