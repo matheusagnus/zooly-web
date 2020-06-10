@@ -25,11 +25,6 @@
           <hr>
 
           <div class="group-info">
-            <h1 class="group-title">Responsável</h1>
-            <p class="group-text">{{ data.tasks[0].responsibleUserName }}</p>
-          </div>
-
-          <div class="group-info">
             <h1 class="group-title">Data de Entrada</h1>
             <p class="group-text">{{ data.creationDate }}</p>
           </div>
@@ -118,6 +113,10 @@ export default {
     toggleAddBiometry (value) {
       this.selectedData = value
       this.addBiometry = !this.addBiometry
+
+      if (this.addBiometry === false) {
+        this.toggleInfoModal()
+      }
     }
   }
 };

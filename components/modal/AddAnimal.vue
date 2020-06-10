@@ -70,7 +70,7 @@ export default {
         popularName: this.popularName,
         scientificName: this.scientificName,
         note: this.note
-      })
+      }).then(() => { this.toggleInfoModal() })
     }
   }
 };

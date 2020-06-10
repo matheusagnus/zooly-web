@@ -102,7 +102,7 @@ export default {
         email: this.email, 
         password: this.password,
         userRole: { id: this.selectedRole }
-      })
+      }).then(() => { this.toggleInfoModal() })
     }
   }
 };

@@ -16,7 +16,8 @@
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn" type="is-danger" @click.native="toggleInfoModal()">Fechar</b-button>
+          <b-button icon-left="delete" class="btn" type="is-danger" @click.native="deleteTask()">Deletar</b-button>
+          <b-button class="btn-secundary" @click.native="endTask()">Encerrar Tarefa</b-button>
         </div>
       </template>
     </modal-template>
@@ -41,6 +42,9 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    endTask () {
+      this.$store.dispatch('tasks/endTask', this.data.id)
     }
   }
 };
@@ -76,12 +80,29 @@ export default {
 }
 .action-modal {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   .btn {
     margin-top: 1rem;
     height: 2.5rem;
     width: 33%;
     font-weight: 700;
+  }
+  .btn-secundary {
+    margin-top: 1rem;
+    height: 2.5rem;
+    width: 45%;
+    font-weight: 700;
+    color: $primary;
+    border: 0.05rem solid $primary;
+
+    &:hover {
+      background: linear-gradient(
+        to right,
+        rgba(255, 114, 95, 1) 30%,
+        rgba(242, 49, 165, 1) 100%
+      );
+      color: #fafafa;
+    }
   }
 }
 </style>

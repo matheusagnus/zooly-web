@@ -40,7 +40,7 @@ export default {
       this.$emit("closeModal");
     },
     deleteTask () {
-      this.$store.dispatch('tasks/deleteTask', this.data.id)
+      this.$store.dispatch('tasks/deleteTask', this.data.id).then(() => { this.toggleInfoModal() })
     }
   }
 };

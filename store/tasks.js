@@ -125,5 +125,29 @@ export const actions = {
       })
       throw err
     }
+  },
+  async endTask ({ state, commit, dispatch }, payload) {
+    try {
+      await this.$axios.delete(`${state.url}/task/${payload}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.token}`
+        } 
+      }).then(res => {
+        dispatch('getAllTasks')
+        Swal.fire({
+          title: 'Tarefa Encerrada',
+          text: 'Muito obrigado pelo seu empenho!',
+          icon: 'success'
+        })
+      })
+    } catch (err) {
+      Swal.fire({
+        title: 'Oopss..',
+        text: 'Algo deu errado! Tente novamente mais tarde.',
+        icon: 'error'
+      })
+      throw err
+    }
   }
 }

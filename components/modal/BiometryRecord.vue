@@ -7,7 +7,7 @@
       </template>
       <template #body>
         <div class="animal-record">
-          <b-icon type="is-danger" icon="launch" />
+          <b-icon @click.native="getBiometricReport()" type="is-danger" icon="launch" />
 
           <div class="group-info">
             <h1 class="group-title">Apelido</h1>
@@ -22,11 +22,6 @@
           <div class="group-info">
             <h1 class="group-title">Nome Científico</h1>
             <p class="group-text">{{ data.animal.scientificName }}</p>
-          </div>
-
-          <div class="group-info">
-            <h1 class="group-title">Responsável</h1>
-            <p class="group-text">{{ data.animal.tasks[0].responsibleUserName }}</p>
           </div>
 
           <hr>
@@ -107,8 +102,13 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    getBiometricReport () {
+      this.$forceUpdate()
+      console.log(this.data)
+      // this.$store.dispatch('biometrics/getBiometricReport', this.data.biometry.id)
     }
-  }
+   }
 };
 </script>
 

@@ -102,6 +102,9 @@ export default {
         prescription: this.prescription,
         userId: sessionStorage.uid,
         weight: this.weight
+      }).then(() => { 
+        window.location.reload(true)
+        this.toggleInfoModal() 
       })
     }
   }

@@ -40,7 +40,7 @@ export default {
       this.$emit("closeModal");
     },
     deletePerson () {
-      this.$store.dispatch('person/deletePerson', { ...this.data })
+      this.$store.dispatch('person/deletePerson', { ...this.data }).then(() => { this.toggleInfoModal() })
     }
   }
 };

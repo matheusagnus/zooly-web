@@ -2,7 +2,7 @@
   <div class="recover-form">
     <div class="card">
       <div class="title">
-        <h2>Recuperar de senha</h2>
+        <h2>Recuperar senha</h2>
       </div>
       <div class="subtitle">
         <p>Enviaremos um e-mail para confirmar o seu e-mail e recuperar a sua senha</p>

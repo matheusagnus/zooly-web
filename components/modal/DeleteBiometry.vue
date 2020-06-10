@@ -41,7 +41,7 @@ export default {
       this.$emit("closeModal");
     },
     deleteBiometry () {
-      this.$store.dispatch('biometrics/deleteBiometric', this.data.id)
+      this.$store.dispatch('biometrics/deleteBiometric', this.data.id).then(() => { this.toggleInfoModal() })
     }
   }
 };

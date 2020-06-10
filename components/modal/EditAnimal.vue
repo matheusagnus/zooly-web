@@ -81,7 +81,7 @@ export default {
         note: this.note,
         tasks: this.data.tasks,
         biometrics: this.data.biometrics
-      })
+      }).then(() => { this.toggleInfoModal() })
     }
   }
 };

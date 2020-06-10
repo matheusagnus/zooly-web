@@ -41,7 +41,7 @@ export default {
       this.$emit("closeModal");
     },
     deleteAnimal () {
-      this.$store.dispatch('animals/deleteAnimal', this.data.id)
+      this.$store.dispatch('animals/deleteAnimal', this.data.id).then(() => { this.toggleInfoModal() })
     }
   }
 };

@@ -138,7 +138,7 @@ export default {
         date: this.date,
         description: this.description,
         taskStatus: 'UNCOMPLETED'
-      })
+      }).then(() => { this.toggleInfoModal() })
     }
   }
 };
