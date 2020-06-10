@@ -7,7 +7,7 @@
       </template>
       <template #body>
         <div class="task">
-          <p class="user">{{ data.userName }}, </p>
+          <p class="user">{{ data.responsibleUserName }}, </p>
 
           <p class="description">{{ data.description }}</p>
 
@@ -38,10 +38,6 @@ export default {
       default: () => {}
     }
   },
-  mounted() {
-    console.log(this.data)
-    this.$store.dispatch('person/getSelectedPerson', this.data.responsibleUserId)
-  },
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
@@ -56,7 +52,7 @@ export default {
   width: 100%;
   max-width: 35rem;
   height: 100%;
-  max-height: 25rem;
+  max-height: 22rem;
   .modal-body {
     max-height: 100%;
 

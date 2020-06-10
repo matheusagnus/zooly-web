@@ -131,6 +131,7 @@ export default {
     },
     edit () {
       this.$store.dispatch('tasks/editTask', {
+        id: this.data.id,
         title: this.title,
         responsibleUserId: this.selectedUser,
         animalId: this.selectedAnimal,

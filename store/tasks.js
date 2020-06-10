@@ -40,6 +40,23 @@ export const actions = {
       commit('setLoading')
     }
   }, 
+  async getUserTasks({ state, commit }) {
+    try {
+      commit('setLoading')
+      await this.$axios.get(`${state.url}/task/user/${sessionStorage.uid}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.token}`
+        } 
+      }).then(res => {
+        commit('setTask', res.data)
+      })
+    } catch (err) {
+      throw err
+    } finally {
+      commit('setLoading')
+    }
+  }, 
   async addNewTask ({ state, commit, dispatch }, payload) {
     try {
       await this.$axios.post(`${state.url}/task`, payload, {
@@ -65,7 +82,7 @@ export const actions = {
   },
   async editTask ({ state, commit, dispatch }, payload) {
     try {
-      await this.$axios.post(`${state.url}/task`, payload, {
+      await this.$axios.put(`${state.url}/task`, payload, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionStorage.token}`
