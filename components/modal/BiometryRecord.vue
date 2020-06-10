@@ -11,41 +11,41 @@
 
           <div class="group-info">
             <h1 class="group-title">Apelido</h1>
-            <p class="group-text">Mel</p>
+            <p class="group-text">{{ data.animal.nickname }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Nome Popular</h1>
-            <p class="group-text">Cão</p>
+            <p class="group-text">{{ data.animal.popularName }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Nome Científico</h1>
-            <p class="group-text">Canis lupus familiaris</p>
+            <p class="group-text">{{ data.animal.scientificName }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Responsável</h1>
-            <p class="group-text">Matheus Ferreira</p>
+            <p class="group-text">{{ data.animal.tasks[0].responsibleUserName }}</p>
           </div>
 
           <hr>
 
           <div class="group-info">
             <h1 class="group-title">Data de Medida</h1>
-            <p class="group-text">27/04/2020</p>
+            <p class="group-text">{{ data.biometry.creationDate }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Observação</h1>
-            <p class="group-text">Animal de grande porte com problemas de alimentação e possível insuficiência renal. Peso em declínio segundo a última medida.</p>
+            <p class="group-text">{{ data.biometry.note }}</p>
           </div>
 
           <hr>
 
           <div class="group-info">
             <h1 class="group-title">Prescrição</h1>
-            <p class="group-text">Medicá-lo com Nutrifull Dog Organnact, 1cp de 12h/12h</p>
+            <p class="group-text">{{ data.biometry.prescription }}</p>
           </div>
 
           <div class="group-info">
@@ -53,13 +53,16 @@
           </div>
 
           <div class="biometrys">
-            <p><strong>Peso -</strong> 19kg</p>
+            <p v-if="data.biometry.weight"><strong>Peso -</strong> {{ data.biometry.weight }} kg</p>
+            <p v-else><strong>Peso -</strong> Não calculado</p>
           </div>
           <div class="biometrys">
-            <p><strong>Altura -</strong> 49cm</p>
+            <p v-if="data.biometry.height"><strong>Altura -</strong> {{ data.biometry.height }} cm</p>
+            <p v-else><strong>Altura -</strong> Não calculado</p>
           </div>
           <div class="biometrys">
-            <p><strong>Comprimeto -</strong> Não calculado</p>
+            <p v-if="data.biometry.length"><strong>Comprimento -</strong> {{ data.biometry.length }} cm</p>
+            <p v-else><strong>Comprimento -</strong> Não calculado</p>
           </div>
           <div class="biometrys">
             <p><strong>Largura -</strong> Não calculado</p>
@@ -91,10 +94,17 @@ export default {
       ]
     }
   },
+  mounted () {
+    console.log('biometry: ', this.data)
+  },
   props: {
     toggle: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {

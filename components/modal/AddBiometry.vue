@@ -8,34 +8,44 @@
       <template #body>
         <form>
           <b-field label="Apelido">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="nickname" disabled placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Nome Popular">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="popularName" disabled placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Nome Científico">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="scientificName" disabled placeholder="Digite aqui..." />
           </b-field>
 
           <hr>
 
-          <b-field label="Responsável">
-            <b-input placeholder="Digite aqui..." />
-          </b-field>
           <b-field label="Observação">
-            <b-input type="textarea" />
+            <b-input v-model="note" @input="isReady()" type="textarea" />
+          </b-field>
+
+          <b-field label="Peso (kg)">
+            <b-numberinput v-model="weight" placeholder="Digite aqui..." />
+          </b-field>
+          <b-field label="Altura (cm)">
+            <b-numberinput v-model="height" placeholder="Digite aqui..." />
+          </b-field>
+          <b-field label="Comprimento (cm)">
+            <b-numberinput v-model="length" placeholder="Digite aqui..." />
+          </b-field>
+          <b-field label="Largura (cm)">
+            <b-numberinput v-model="width" placeholder="Digite aqui..." />
           </b-field>
 
           <hr>
 
           <b-field label="Prescrição">
-            <b-input type="textarea" />
+            <b-input v-model="prescription" @input="isReady()" type="textarea" />
           </b-field>
         </form>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Criar</b-button>
+          <b-button :disabled="disabledButton" @click="create()" class="btn-secundary">Criar</b-button>
         </div>
       </template>
     </modal-template>
@@ -49,30 +59,50 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
-      
+      disabledButton: true,
+      nickname: this.data.nickname,
+      popularName: this.data.popularName,
+      scientificName: this.data.scientificName,
+      note: null,
+      weight: null,
+      height: null,
+      length: null,
+      width: null,
+      prescription: null
     };
-  },
-  computed: {
-    filteredDataArray() {
-      return this.data.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.name.toLowerCase()) >= 0
-        );
-      });
-    }
   },
   props: {
     toggle: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      if (
+        this.note &&
+        this.prescription
+      ) {
+        this.disabledButton = false
+      }
+    },
+    create () {
+      this.$store.dispatch('biometrics/createBiometry', {
+        animalId: this.data.id,
+        height: this.height,
+        length: this.length,
+        note: this.note,
+        prescription: this.prescription,
+        userId: sessionStorage.uid,
+        weight: this.weight
+      })
     }
   }
 };

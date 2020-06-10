@@ -32,6 +32,7 @@
     </div>
 
     <animal-record
+      v-if="animalRecord"
       :data="selectedAnimal"
       :toggle="animalRecord"
       @closeModal="toggleAnimalRecord()"
@@ -78,7 +79,6 @@ export default {
   },
   computed: {
     animalsData () {
-      console.log(this.$store.state.animals.animalsData)
       return this.$store.state.animals.animalsData
     }
   },

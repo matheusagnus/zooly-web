@@ -9,49 +9,54 @@
         <div class="animal-record">
           <div class="group-info">
             <h1 class="group-title">Apelido</h1>
-            <p class="group-text">Mel</p>
+            <p class="group-text">{{ data.nickname }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Nome Popular</h1>
-            <p class="group-text">Cão</p>
+            <p class="group-text">{{ data.popularName }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Nome Científico</h1>
-            <p class="group-text">Canis lupus familiaris</p>
+            <p class="group-text">{{ data.scientificName }}</p>
           </div>
 
           <hr>
 
           <div class="group-info">
             <h1 class="group-title">Responsável</h1>
-            <p class="group-text">Matheus Ferreira</p>
+            <p class="group-text">{{ data.tasks[0].responsibleUserName }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Data de Entrada</h1>
-            <p class="group-text">27/04/2020</p>
+            <p class="group-text">{{ data.creationDate }}</p>
           </div>
 
           <div class="group-info">
             <h1 class="group-title">Descrição</h1>
-            <p class="group-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam natus aut veniam dolorum, eos praesentium deserunt!</p>
+            <p class="group-text">{{ data.note }}</p>
           </div>
 
           <hr>
 
-          <b-icon @click.native="toggleAddBiometry()" type="is-danger" icon="plus" />
+          <b-icon @click.native="toggleAddBiometry(data)" type="is-danger" icon="plus" />
 
           <div class="group-info">
             <h1 class="group-title">Biometrias</h1>
           </div>
 
-          <div class="biometrys" v-for="option in biometry" :key="option.id">
-            <p><strong>{{ option.date }} -</strong> {{ option.responsible }}</p>
-            <b-icon @click.native="toggleBiometryRecord()" type="is-danger" icon="eye" />
+          <div v-if="data.biometrics.length === 0" class="biometrys">
+            <div class="advice">
+              <p><strong>Não há dados aqui.</strong></p>
+              <p>Adicione uma biometria</p>
+            </div>
           </div>
-
+          <div v-else class="biometrys" v-for="option in data.biometrics" :key="option.id">
+            <p><strong>{{ option.creationDate }}</strong></p>
+            <b-icon @click.native="toggleBiometryRecord(option)" type="is-danger" icon="eye" />
+          </div>
         </div>
       </template>
       <template #footer class="columns is-centered">
@@ -62,10 +67,14 @@
     </modal-template>
 
     <add-biometry 
+      :data="selectedData"
       :toggle="addBiometry"
+      v-if="addBiometry"
       @closeModal="toggleAddBiometry()"
     />
     <biometry-record 
+      :data="selectedBiometry"
+      v-if="biometryRecord"
       :toggle="biometryRecord"
       @closeModal="toggleBiometryRecord()"
     />
@@ -84,29 +93,34 @@ export default {
     return {
       addBiometry: false,
       biometryRecord: false,
-      biometry: [
-        { id: 1, date: '24/07/2020', responsible: 'Matheus Ferreira' },
-        { id: 2, date: '23/05/2020', responsible: 'Matheus Ferreira' },
-        { id: 3, date: '22/04/2020', responsible: 'Matheus Ferreira' },
-        { id: 4, date: '21/03/2020', responsible: 'Matheus Ferreira' },
-        { id: 5, date: '20/01/2020', responsible: 'Matheus Ferreira' },
-      ]
+      selectedData: null,
+      selectedBiometry: null
     }
+  },
+  mounted () {
+    console.log('animal record: ', this.data)
   },
   props: {
     toggle: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
     },
-    toggleBiometryRecord () {
+    toggleBiometryRecord (value) {
+      this.selectedBiometry = { biometry: value, animal: this.data }
       this.biometryRecord = !this.biometryRecord
     }, 
-    toggleAddBiometry () {
+    toggleAddBiometry (value) {
+      console.log('foi')
+      this.selectedData = value
       this.addBiometry = !this.addBiometry
     }
   }
@@ -138,9 +152,14 @@ export default {
       .biometrys {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.35rem; 
         strong {
           color: $primary;
+        }
+        .advice {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
         }
       }
       .group-info {
