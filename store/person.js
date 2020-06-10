@@ -18,8 +18,8 @@ export const mutations = {
 
 export const actions = {
   async getPersons ({ state, commit }) {
-    commit('setLoading')
     try {
+      commit('setLoading')
       await this.$axios.get(`${state.url}/users`, {
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const actions = {
       })
     } catch (err) {
       throw err
-    } finally { 
+    } finally {
       commit('setLoading')
     }
   },
@@ -62,6 +62,7 @@ export const actions = {
     }
   },
   async createPerson({ state, commit, dispatch }, payload) {
+    commit('setLoading')
     try {
       await this.$axios.post(`${state.url}/users`, payload, {
         headers: {

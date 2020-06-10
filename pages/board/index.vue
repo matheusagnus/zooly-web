@@ -149,6 +149,11 @@ export default {
   },
   mounted () {
     this.role = this.$store.state.user.user.role
+    if (this.$store.state.user.user.role === 1 || this.$store.state.user.user.role === 2) {
+      this.$store.dispatch('tasks/getAllTasks')
+    } else {
+      this.$store.dispatch('tasks/getUserTasks')
+    }
   },
   methods: {
     toggleNewTask() {
