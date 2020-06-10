@@ -97,9 +97,6 @@ export default {
       selectedBiometry: null
     }
   },
-  mounted () {
-    console.log('animal record: ', this.data)
-  },
   props: {
     toggle: {
       type: Boolean,
@@ -119,7 +116,6 @@ export default {
       this.biometryRecord = !this.biometryRecord
     }, 
     toggleAddBiometry (value) {
-      console.log('foi')
       this.selectedData = value
       this.addBiometry = !this.addBiometry
     }

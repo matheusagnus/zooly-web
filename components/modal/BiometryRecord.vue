@@ -94,9 +94,6 @@ export default {
       ]
     }
   },
-  mounted () {
-    console.log('biometry: ', this.data)
-  },
   props: {
     toggle: {
       type: Boolean,
