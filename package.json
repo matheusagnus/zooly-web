@@ -1,7 +1,7 @@
 {
   "name": "zooly-web",
   "version": "1.0.0",
-  "description": "a smashing project to save animals",
+  "description": "Zooly Backoffice - Um projeto que vai te ajudar a salvar animais!",
   "author": "matheusagnus",
   "private": true,
   "scripts": {
