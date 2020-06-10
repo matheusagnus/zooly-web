@@ -10,37 +10,22 @@
       </div>
       <hr />
     </div>
-    <div v-if="!data"  class="board">
-      <no-data />
-    </div>  
-
-    <div v-else class="board columns is-multiline is-desktop">
-      <div v-if="role === 1 || role === 2" class="filter">
-        <b-field>
-            <b-autocomplete
-              v-model="user"
-              :users="filteredDataArray"
-              placeholder="Selecione o responsável..."
-              icon="magnify"
-              editable
-              @select="option => selected = option"
-            >
-              <template slot="empty">Usuário não existe</template>
-            </b-autocomplete>
-          </b-field>
-      </div>
-      <div class="card column is-4 is-variable" v-for="task in tasks" :key="task.title">
-        <h1 class="card-board-title">{{ task.title }}</h1>
+    
+    <div v-if="tasks.length === 0 ? false : true" class="board columns is-multiline is-desktop">
+      <div class="card column is-4 is-variable" v-for="option in tasks" :key="option.id">
+        <h1 class="card-board-title">{{ option.title }}</h1>
         <div class="action-icons">
-          <b-icon @click.native="toggleTask(task)" type="is-danger" icon="comment-eye" />
-          <b-icon v-if="role != 4" @click.native="toggleEditTask(task)" type="is-danger" icon="pencil" />
-          <b-icon v-if="role != 4" @click.native="toggleDeleteTask(task)" type="is-danger" icon="delete" />
+          <b-icon @click.native="toggleTask(option)" type="is-danger" icon="comment-eye" />
+          <b-icon v-if="role != 4" @click.native="toggleEditTask(option)" type="is-danger" icon="pencil" />
+          <b-icon v-if="role != 4" @click.native="toggleDeleteTask(option)" type="is-danger" icon="delete" />
         </div>
-        <p class="card-board-day">{{ task.day }}</p>
+        <p class="card-board-day">{{ option.day }}</p>
       </div>
     </div>
-
-    <task :toggle="task" :data="selectedTask" @closeModal="toggleTask()" />
+    <div v-else class="board">
+      <no-data />
+    </div>  
+    <task v-if="task" :toggle="task" :data="selectedTask" @closeModal="toggleTask()" />
     <delete-task :toggle="deleteTask" :data="selectedTask" @closeModal="toggleDeleteTask()" />
     <edit-task
       v-if="editTask"
@@ -73,19 +58,11 @@ export default {
       user: "",
       selected: null,
       selectedTask: {},
-      tasks: this.$store.state.tasks.tasksData
     };
   },
   computed: {
-    filteredDataArray() {
-      return this.users.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.user.toLowerCase()) >= 0
-        );
-      });
+    tasks () {
+      return this.$store.state.tasks.tasksData
     }
   },
   mounted () {

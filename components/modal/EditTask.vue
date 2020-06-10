@@ -8,36 +8,47 @@
       <template #body>
         <form>
           <b-field label="Título">
-            <b-input v-model="title" placeholder="Digite aqui..." maxlength="60" />
+            <b-input v-model="title" @input="isReady()" placeholder="Digite aqui..." maxlength="60" />
           </b-field>
           <b-field label="Data">
             <b-datepicker
+              @input="isReady()"
+              v-model="date"
               placeholder="Selecione uma data..."
               icon="calendar-today"
               :mobile-native="true"
-              v-model="date"
             />
           </b-field>
           <b-field label="Responsável">
             <b-autocomplete
-              v-model="user"
-              :users="filteredDataArray"
-              placeholder="Selecione o responsável..."
-              icon="magnify"
-              editable
-              @select="option => selected = option"
-            >
-              <template slot="empty">Usuário não existe</template>
+                v-model="name"
+                :data="filteredDataArray"
+                placeholder="Defina o responsável..."
+                icon="magnify"
+                field="name"
+                @select="option => selectedUser = option.id">
+                <template slot="empty">No results found</template>
+            </b-autocomplete>
+          </b-field>
+          <b-field label="Animal">
+            <b-autocomplete
+                v-model="animal"
+                :data="filteredDataObj"
+                placeholder="Defina o animal..."
+                icon="magnify"
+                field="nickname"
+                @select="option => selectedAnimal = option.id">
+                <template slot="empty">No results found</template>
             </b-autocomplete>
           </b-field>
           <b-field label="Descrição">
-            <b-input v-model="description" type="textarea" />
+            <b-input v-model="description" @input="isReady()" type="textarea" />
           </b-field>
         </form>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Editar</b-button>
+          <b-button @click="edit()" :disabled="disabledButton" class="btn-secundary">Editar</b-button>
         </div>
       </template>
     </modal-template>
@@ -51,25 +62,44 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
-      users: ["Matheus", "Wesley", "Angleby"],
       user: this.data.user,
       selected: null,
       title: this.data.title,
       date: null,
       description: this.data.description,
-      unwatch: null
+      disabledButton: true,
+      name: '',
+      animal: '',
+      selectedUser: null,
+      selectedAnimal: null  
     };
+  },
+  mounted () {
+    this.$store.dispatch('person/getPersons')
+    this.$store.dispatch('animals/getAnimals')
   },
   computed: {
     filteredDataArray() {
-      return this.users.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.user.toLowerCase()) >= 0
-        );
-      });
+      return this.dataUsers.filter((option) => {
+        return option.name
+          .toString()
+          .toLowerCase()
+          .indexOf(this.name.toLowerCase()) >= 0
+      })
+    },
+    filteredDataObj() {
+      return this.dataAnimals.filter((option) => {
+        return option.nickname
+          .toString()
+          .toLowerCase()
+          .indexOf(this.animal.toLowerCase()) >= 0
+      })
+    },
+    dataUsers () {
+      return this.$store.state.person.dataPerson
+    },
+    dataAnimals () {
+      return this.$store.state.animals.animalsData
     }
   },
   props: {
@@ -85,6 +115,29 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      if (
+        this.title &&
+        this.selectedUser &&
+        this.selectedAnimal &&
+        this.date &&
+        this.description
+      ) {
+        this.disabledButton = false
+      } else {
+        this.disabledButton = true
+      }
+    },
+    edit () {
+      this.$store.dispatch('tasks/editTask', {
+        title: this.title,
+        responsibleUserId: this.selectedUser,
+        animalId: this.selectedAnimal,
+        date: this.date,
+        description: this.description,
+        taskStatus: 'UNCOMPLETED'
+      })
     }
   }
 };

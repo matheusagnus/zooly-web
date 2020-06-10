@@ -7,7 +7,7 @@
       </template>
       <template #body>
         <div class="task">
-          <p class="user">{{ data.user }}, </p>
+          <p class="user">{{ data.userName }}, </p>
 
           <p class="description">{{ data.description }}</p>
 
@@ -37,6 +37,10 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  mounted() {
+    console.log(this.data)
+    this.$store.dispatch('person/getSelectedPerson', this.data.responsibleUserId)
   },
   methods: {
     toggleInfoModal() {

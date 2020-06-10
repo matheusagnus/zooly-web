@@ -12,7 +12,7 @@
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn" type="is-danger" @click.native="toggleInfoModal()">Deletar</b-button>
+          <b-button icon-left="delete" @click="deleteAnimal()" class="btn" type="is-danger">Deletar</b-button>
           <b-button class="btn-secundary" @click.native="toggleInfoModal()">Fechar</b-button>
         </div>
       </template>
@@ -39,6 +39,9 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    deleteAnimal () {
+      this.$store.dispatch('animals/deleteAnimal', this.data.id)
     }
   }
 };

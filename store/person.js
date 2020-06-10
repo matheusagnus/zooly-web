@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 export const state = () => ({
   url: https.baseUrl,
   dataPerson: [],
+  selectedPersonData: {},
   isLoading: false
 })
 
@@ -12,8 +13,10 @@ export const mutations = {
     state.isLoading = !state.isLoading
   },
   setPersons: (state, payload) => {
-    console.log(payload)
     state.dataPerson = payload
+  },
+  setSelectedPerson: (state, payload) => {
+    state.selectedPersonData = payload
   }
 }
 
@@ -28,6 +31,24 @@ export const actions = {
         } 
       }).then(res => {
         commit('setPersons', res.data)
+        return res.data
+      })
+    } catch (err) {
+      throw err
+    } finally {
+      commit('setLoading')
+    }
+  },
+  async getSelectedPerson ({ state, commit }, payload) {
+    try {
+      commit('setLoading')
+      await this.$axios.get(`${state.url}/users/${payload}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.token}`
+        } 
+      }).then(res => {
+        commit('setSelectedPerson', res.data)
         return res.data
       })
     } catch (err) {

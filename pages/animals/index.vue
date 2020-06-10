@@ -12,11 +12,12 @@
     </div>
 
     <div class="animal-table">
-      <b-table :data="data" :loading="isLoading" :checkable="false" :paginated="false">
+      <no-data v-if="animalsData.length === 0 ? true : false" />
+      <b-table v-else :data="animalsData" :loading="isLoading" :checkable="false" :paginated="false">
         <template slot-scope="columns">
           <b-table-column field="id" label="ID">{{ columns.row.id }}</b-table-column>
           <b-table-column field="nickname" label="Apelido">{{ columns.row.nickname }}</b-table-column>
-          <b-table-column field="popular_name" label="Nome popular">{{ columns.row.popular_name }}</b-table-column>
+          <b-table-column field="popularName" label="Nome popular">{{ columns.row.popularName }}</b-table-column>
           <b-table-column field="responsible" label="Responsável">{{ columns.row.responsible }}</b-table-column>
           <b-table-column field="action" label="Ações">
             <b-icon
@@ -59,10 +60,11 @@ import AnimalRecord from "@/components/modal/AnimalRecord";
 import AddAnimal from "@/components/modal/AddAnimal";
 import EditAnimal from "@/components/modal/EditAnimal";
 import DeleteAnimal from "@/components/modal/DeleteAnimal";
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: "Animal",
-  components: { AnimalRecord, AddAnimal, EditAnimal, DeleteAnimal },
+  components: { AnimalRecord, AddAnimal, EditAnimal, DeleteAnimal, NoData },
   data() {
     return {
       isLoading: false,
@@ -71,36 +73,18 @@ export default {
       editAnimal: false,
       deleteAnimal: false,
       selectedAnimal: null,
-      data: [
-        {
-          id: 1,
-          nickname: "Mel",
-          popular_name: "Cão",
-          scientific_name: "Canis lupus familiaris",
-          responsible: "Matheus",
-          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
-        },
-        {
-          id: 2,
-          nickname: "Meggie",
-          popular_name: "Cão",
-          scientific_name: "Canis lupus familiaris",
-          responsible: "Angleby",
-          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
-        },
-        {
-          id: 3,
-          nickname: "Phablo",
-          popular_name: "Elefante",
-          scientific_name: "Elephas maximus",
-          responsible: "Wesley",
-          notes: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste reprehenderit saepe eum fugiat, culpa sapiente aut."
-        }
-      ]
+      data: []
+    }
+  },
+  computed: {
+    animalsData () {
+      console.log(this.$store.state.animals.animalsData)
+      return this.$store.state.animals.animalsData
     }
   },
   mounted () {
     this.role = this.$store.state.user.user.role
+    this.$store.dispatch('animals/getAnimals')
   },
   methods: {
     toggleAnimalRecord(value) {
