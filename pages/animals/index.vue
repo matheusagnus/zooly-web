@@ -18,7 +18,6 @@
           <b-table-column field="id" label="ID">{{ columns.row.id }}</b-table-column>
           <b-table-column field="nickname" label="Apelido">{{ columns.row.nickname }}</b-table-column>
           <b-table-column field="popularName" label="Nome popular">{{ columns.row.popularName }}</b-table-column>
-          <b-table-column field="responsible" label="Responsável">{{ columns.row.responsible }}</b-table-column>
           <b-table-column field="action" label="Ações">
             <b-icon
               @click.native="toggleAnimalRecord(columns.row)"
@@ -67,6 +66,7 @@ export default {
   components: { AnimalRecord, AddAnimal, EditAnimal, DeleteAnimal, NoData },
   data() {
     return {
+      role: null,
       isLoading: false,
       animalRecord: false,
       addAnimal: false,

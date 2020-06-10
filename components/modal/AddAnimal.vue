@@ -8,25 +8,22 @@
       <template #body>
         <form>
           <b-field label="Apelido">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="nickname" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Nome Popular">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="popularName" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Nome Científico">
-            <b-input placeholder="Digite aqui..." />
-          </b-field>
-          <b-field label="Responsável">
-            <b-input placeholder="Digite aqui..." />
+            <b-input v-model="scientificName" @input="isReady()" placeholder="Digite aqui..." />
           </b-field>
           <b-field label="Observação">
-            <b-input type="textarea" />
+            <b-input v-model="note" @input="isReady()" type="textarea" />
           </b-field>
         </form>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Criar</b-button>
+          <b-button @click="create()" :disabled="disabledButton" class="btn-secundary">Criar</b-button>
         </div>
       </template>
     </modal-template>
@@ -40,22 +37,12 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
-      data: ["Matheus", "Wesley", "Angleby"],
-      name: "",
-      selected: null
+      disabledButton: true,
+      nickname: null,
+      popularName: null,
+      scientificName: null,
+      note: null
     };
-  },
-  computed: {
-    filteredDataArray() {
-      return this.data.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.name.toLowerCase()) >= 0
-        );
-      });
-    }
   },
   props: {
     toggle: {
@@ -66,6 +53,24 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      if (
+        this.nickname &&
+        this.popularName &&
+        this.scientificName &&
+        this.note
+      ) {
+        this.disabledButton = false
+      }
+    },
+    create () {
+      this.$store.dispatch('animals/createAnimal', {
+        nickname: this.nickname,
+        popularName: this.popularName,
+        scientificName: this.scientificName,
+        note: this.note
+      })
     }
   }
 };

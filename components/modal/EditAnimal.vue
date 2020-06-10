@@ -11,22 +11,19 @@
             <b-input placeholder="Digite aqui..." v-model="nickname" />
           </b-field>
           <b-field label="Nome Popular">
-            <b-input placeholder="Digite aqui..." v-model="popular_name" />
+            <b-input placeholder="Digite aqui..." v-model="popularName" />
           </b-field>
           <b-field label="Nome Científico">
-            <b-input placeholder="Digite aqui..." v-model="scientific_name"/>
-          </b-field>
-          <b-field label="Responsável">
-            <b-input placeholder="Digite aqui..." v-model="responsible"/>
+            <b-input placeholder="Digite aqui..." v-model="scientificName"/>
           </b-field>
           <b-field label="Observação">
-            <b-input type="textarea" v-model="notes"/>
+            <b-input type="textarea" v-model="note"/>
           </b-field>
         </form>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn-secundary">Editar</b-button>
+          <b-button @click="editAnimal()" :disabled="disabledButton" class="btn-secundary">Editar</b-button>
         </div>
       </template>
     </modal-template>
@@ -40,12 +37,16 @@ export default {
   components: { ModalTemplate },
   data() {
     return {
+      disabledButton: true,
       nickname: this.data.nickname,
-      popular_name: this.data.popular_name,
-      scientific_name: this.data.scientific_name,
+      popularName: this.data.popularName,
+      scientificName: this.data.scientificName,
       responsible: this.data.responsible,
-      notes: this.data.notes
+      note: this.data.note
     };
+  },
+  mounted() {
+    this.isReady()
   },
   props: {
     toggle: {
@@ -60,6 +61,27 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    isReady () {
+      if (
+        this.nickname &&
+        this.popularName &&
+        this.scientificName &&
+        this.note
+      ) {
+        this.disabledButton = false
+      }
+    },
+    editAnimal () {
+      this.$store.dispatch('animals/editAnimal', {
+        id: this.data.id,
+        nickname: this.nickname,
+        popularName: this.popularName,
+        scientificName: this.scientificName,
+        note: this.note,
+        tasks: this.data.tasks,
+        biometrics: this.data.biometrics
+      })
     }
   }
 };

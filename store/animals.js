@@ -55,5 +55,51 @@ export const actions = {
       })
       throw err
     }
+  },
+  async createAnimal({ state, commit, dispatch }, payload) {
+    try {
+      await this.$axios.post(`${state.url}/animal`, payload, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.token}`
+        } 
+      }).then(res => {
+        dispatch('getAnimals')
+        Swal.fire({
+          title: 'Animal criado!',
+          icon: 'success'
+        })
+      })
+    } catch (err) {
+      Swal.fire({
+        title: 'Oopss..',
+        text: 'Algo deu errado! Tente novamente mais tarde.',
+        icon: 'error'
+      })
+      throw err
+    }
+  },
+  async editAnimal ({ state, commit, dispatch }, payload) {
+    try {
+      await this.$axios.put(`${state.url}/animal`, payload, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${sessionStorage.token}`
+        } 
+      }).then(res => {
+        dispatch('getAnimals')
+        Swal.fire({
+          title: 'Animal editado!',
+          icon: 'success'
+        })
+      })
+    } catch (err) {
+      Swal.fire({
+        title: 'Oopss..',
+        text: 'Algo deu errado! Tente novamente mais tarde.',
+        icon: 'error'
+      })
+      throw err
+    }
   }
 }
