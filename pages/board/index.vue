@@ -10,7 +10,11 @@
       </div>
       <hr />
     </div>
-    <div class="board columns is-multiline is-desktop">
+    <div v-if="!data"  class="board">
+      <no-data />
+    </div>  
+
+    <div v-else class="board columns is-multiline is-desktop">
       <div v-if="role === 1 || role === 2" class="filter">
         <b-field>
             <b-autocomplete
@@ -53,10 +57,11 @@ import AddNewTask from "@/components/modal/AddNewTask";
 import DeleteTask from "@/components/modal/DeleteTask";
 import EditTask from "@/components/modal/EditTask";
 import Task from "@/components/modal/Task";
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: "Board",
-  components: { AddNewTask, DeleteTask, EditTask, Task },
+  components: { AddNewTask, DeleteTask, EditTask, Task, NoData },
   data() {
     return {
       role: null,
@@ -68,71 +73,7 @@ export default {
       user: "",
       selected: null,
       selectedTask: {},
-      tasks: [
-        {
-          title: "Dar comida para o 1",
-          user: "Angleby",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 2",
-          user: "Matheus",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 3",
-          user: "Wesley",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 4",
-          user: "Angleby",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 5",
-          user: "Matheus",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 6",
-          user: "Wesley",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 7",
-          user: "Angleby",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        },
-        {
-          title: "Dar comida para o 8",
-          user: "Matheus",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/20202"
-        },
-        {
-          title: "Dar comida para o 9",
-          user: "Wesley",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque excepturi alias temporibus at? Quod, nostrum nam!",
-          day: "22/07/2020"
-        }
-      ]
+      tasks: this.$store.state.tasks.tasksData
     };
   },
   computed: {

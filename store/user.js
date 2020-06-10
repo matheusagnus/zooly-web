@@ -16,6 +16,7 @@ export const getters = {
 export const mutations = {
   userId: (state, payload) => {
     state.user = {...state.user, id: payload}
+    sessionStorage.setItem('uid', payload)
   },
   userName: (state, payload) => {
     state.user = {...state.user, name: payload}

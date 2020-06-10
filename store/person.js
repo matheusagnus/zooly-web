@@ -12,6 +12,7 @@ export const mutations = {
     state.isLoading = !state.isLoading
   },
   setPersons: (state, payload) => {
+    console.log(payload)
     state.dataPerson = payload
   }
 }

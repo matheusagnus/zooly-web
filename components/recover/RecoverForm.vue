@@ -11,12 +11,12 @@
         <b-field
           label="E-mail"
           :type="{ 'is-danger': hasError }"
-          :message="{ 'Precisamos do seu e-mail para o login': hasError }"
+          :message="{ 'Precisamos do seu e-mail para conseguir recuperar sua senha': hasError }"
         >
-          <b-input icon="account" placeholder="Seu e-mail..."></b-input>
+          <b-input v-model="email" icon="account" placeholder="Seu e-mail..."></b-input>
         </b-field>
 
-        <b-button class="btn-primary">Enviar e-mail</b-button>
+        <b-button @click="recover()" class="btn-primary">Enviar e-mail</b-button>
       </div>
       <p>Voltar para o <nuxt-link to="/auth/login">Login</nuxt-link></p>
     </div>
@@ -27,7 +27,18 @@
   export default {
     data () {
       return {
-        hasError: false
+        hasError: false,
+        email: null
+      }
+    },
+    methods: {
+      recover () {
+        if (this.email) {
+          this.$store.dispatch('auth/recoverPassword', this.email)
+          this.hasError = false
+        } else {
+          this.hasError = true
+        }
       }
     }
   }

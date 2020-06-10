@@ -8,122 +8,40 @@
       <hr />
     </div>
 
-    <div class="logs-board">
-      <div class="logs" v-for="log in logs" :key="log.index">
+    <div v-if="logs.length === 0 ? false : true" class="logs-board">
+      <div class="logs" v-for="log in logs" :key="log.id">
         <div class="log">
           <b-icon type="is-primary" :icon="log.icon" />
-          <p>{{ log.user }} {{ log.message }} {{ log.time }} {{ log.day }}</p>
+          <p>{{ log.userName }} {{ log.message }} {{ log.creationDate }}</p>
         </div>
         <hr />
       </div>
+    </div>
+
+    <div v-else class="logs-board">
+      <no-data />
     </div>
   </section>
 </template>
 
 <script>
+import NoData from '@/components/shared/NoData'
 export default {
   name: "Activity",
-  data() {
-    return {
-      logs: [
-        {
-          index: 1,
-          icon: "clipboard-text-outline",
-          user: "Matheus",
-          message: "cadastrou uma atividade às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 2,
-          icon: "paw",
-          user: "Angleby",
-          message: "editou um animal às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 3,
-          icon: "pulse",
-          user: "Matheus",
-          message: "deletou uma biometria às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 4,
-          icon: "account-supervisor",
-          user: "Wesley",
-          message: "cadastrou um usuário às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 5,
-          icon: "clipboard-text-outline",
-          user: "Matheus",
-          message: "cadastrou uma atividade às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 6,
-          icon: "paw",
-          user: "Angleby",
-          message: "editou um animal às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 7,
-          icon: "pulse",
-          user: "Matheus",
-          message: "deletou uma biometria às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 8,
-          icon: "account-supervisor",
-          user: "Wesley",
-          message: "cadastrou um usuário às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 9,
-          icon: "clipboard-text-outline",
-          user: "Matheus",
-          message: "cadastrou uma atividade às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 10,
-          icon: "paw",
-          user: "Angleby",
-          message: "editou um animal às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 11,
-          icon: "pulse",
-          user: "Matheus",
-          message: "deletou uma biometria às",
-          time: "12:08",
-          day: "25/05/2020"
-        },
-        {
-          index: 12,
-          icon: "account-supervisor",
-          user: "Wesley",
-          message: "cadastrou um usuário às",
-          time: "12:08",
-          day: "25/05/2020"
-        }
-      ]
-    };
+  components: { NoData },
+  computed: {
+    logs () {
+      return this.$store.state.activity.activityData
+    }
+  },
+  mounted () {
+    this.role = this.$store.state.user.user.role
+    if (this.$store.state.user.user.role === 1 || this.$store.state.user.user.role === 2) {
+      this.$store.dispatch('activity/getActivity')
+    } else {
+      this.$store.dispatch('activity/getUserActivity')
+    }
+    
   }
 };
 </script>

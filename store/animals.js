@@ -2,7 +2,8 @@ import https from '@/network/https'
 
 
 export const state = () => ({
-  url: https.baseUrl
+  url: https.baseUrl,
+  animalsData: []
 })
 
 export const getters = {
@@ -12,21 +13,21 @@ export const getters = {
 }
 
 export const mutations = {
-  updateValue: (state, payload) => {
-    state.value = payload
+  setAnimals: (state, payload) => {
+    state.animalsData = payload
   }
 }
 
 export const actions = {
-  async getAnimals({ commit }) {
+  async getAnimals({ state, commit }) {
     try {
-      await this.$axios.get(`${state.url}/animals`, {
+      await this.$axios.get(`${state.url}/animal`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Authorization': `Bearer ${sessionStorage.token}`
         } 
       }).then(res => {
-        console.log(res)
+        commit('setAnimals', res.data)
       })
     } catch (err) {
       throw err

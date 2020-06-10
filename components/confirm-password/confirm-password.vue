@@ -11,12 +11,12 @@
         <b-field
           label="Senha"
           :type="{ 'is-danger': hasError }"
-          :message="{ 'Precisamos do seu e-mail para o login': hasError }"
+          :message="{ 'Precisamos que você informe uma senha para ser redefinida': hasError }"
         >
           <b-input placeholder="Digite aqui..." v-model="password" password-reveal />
         </b-field>
 
-        <b-button class="btn-primary">Salvar nova senha</b-button>
+        <b-button @click="newPassword()" class="btn-primary">Salvar nova senha</b-button>
       </div>
       <p>Voltar para o <nuxt-link to="/auth/login">Login</nuxt-link></p>
     </div>
@@ -24,10 +24,42 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
   export default {
     data () {
       return {
+        hash: null,
+        email: null,
+        password: null,
         hasError: false
+      }
+    },
+    mounted () {
+      if (this.$route.query.u && this.$route.query.h) {
+        this.email = this.$route.query.u
+        this.hash = this.$route.query.h
+      } else {
+        Swal.fire({
+        title: 'Acho que não fui claro!',
+        text: '... essa rota é só para quem pode! Né possivel!',
+        icon: 'error',
+        allowClickOutside: false,
+      }).then(res => {
+        this.$router.push({
+          path: '/auth/login'
+        }) 
+      })
+      }
+      
+    },
+    methods: {
+      newPassword () {
+        this.$store.dispatch('auth/newPassword', {
+          email: this.email,
+          hash: this.hash,
+          password: this.password
+        })
       }
     }
   }
