@@ -7,12 +7,12 @@
       </template>
       <template #body>
         <div class="has-text-centered">
-          <p>Essa biometria foi feita por <strong>{{ data.responsible }}</strong>. Você tem certeza que deseja excluir a biometria de <strong>"{{ data.nickname }}"</strong>?</p>
+          <p>Você tem certeza que deseja excluir a biometria de <strong>"{{ data.animalId }}"</strong>?</p>
         </div>
       </template>
       <template #footer class="columns is-centered">
         <div class="action-modal">
-          <b-button class="btn" type="is-danger" @click.native="toggleInfoModal()">Deletar</b-button>
+          <b-button icon-left="delete" @click="deleteBiometry()" class="btn" type="is-danger">Deletar</b-button>
           <b-button class="btn-secundary" @click.native="toggleInfoModal()">Fechar</b-button>
         </div>
       </template>
@@ -39,6 +39,9 @@ export default {
   methods: {
     toggleInfoModal() {
       this.$emit("closeModal");
+    },
+    deleteBiometry () {
+      this.$store.dispatch('biometrics/deleteBiometric', this.data.id)
     }
   }
 };
