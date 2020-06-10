@@ -104,9 +104,7 @@ export default {
       this.$emit("closeModal");
     },
     getBiometricReport () {
-      this.$forceUpdate()
-      console.log(this.data)
-      // this.$store.dispatch('biometrics/getBiometricReport', this.data.biometry.id)
+      this.$store.dispatch('biometrics/getBiometricReport', this.data.biometry.id).then(() => { this.toggleInfoModal() })
     }
    }
 };
